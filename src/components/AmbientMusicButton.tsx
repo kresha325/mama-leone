@@ -2,6 +2,7 @@
 
 import { usePathname } from "next/navigation";
 import { useYoutubeAmbient } from "@/contexts/youtube-ambient-context";
+import { useLanguage } from "@/contexts/language-context";
 
 function VolumeOffIcon() {
   return (
@@ -24,6 +25,7 @@ function VolumeOnIcon() {
 export function AmbientMusicButton() {
   const pathname = usePathname();
   const { muted, playerReady, toggleSoundOrPlayback } = useYoutubeAmbient();
+  const { t } = useLanguage();
 
   if (pathname !== "/menu") return null;
 
@@ -32,14 +34,8 @@ export function AmbientMusicButton() {
       type="button"
       className="fixed bottom-5 left-4 z-40 flex h-12 w-12 items-center justify-center rounded-full border border-border bg-card/95 text-foreground shadow-lg backdrop-blur-sm transition hover:border-primary hover:bg-primary hover:text-primary-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 disabled:pointer-events-none disabled:opacity-40"
       aria-pressed={!muted}
-      aria-label={muted ? "Ton einschalten" : "Ton ausschalten"}
-      title={
-        !playerReady
-          ? "Wird geladen…"
-          : muted
-            ? "Ton: AUS (für AN klicken)"
-            : "Ton: AN (für AUS klicken)"
-      }
+      aria-label={muted ? t.audio.muteOn : t.audio.muteOff}
+      title={!playerReady ? t.audio.loading : muted ? t.audio.muteOn : t.audio.muteOff}
       disabled={!playerReady}
       onClick={() => toggleSoundOrPlayback()}
     >

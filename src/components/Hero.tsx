@@ -1,20 +1,25 @@
+"use client";
+
 import Image from "next/image";
 import Link from "next/link";
+import { useLanguage } from "@/contexts/language-context";
 import { business } from "@/data/menu";
 
 export function Hero() {
+  const { t } = useLanguage();
+
   return (
     <section
       id="home"
       className="relative flex h-[90vh] w-full items-center justify-center overflow-hidden md:h-screen"
     >
-      <div className="absolute inset-0 z-10 bg-black/50" />
+      <div className="absolute inset-0 z-10 bg-black/45" />
       <Image
-        src="/images/restaurant.jpg"
-        alt="Ristorante Mama Leone in Meldorf"
+        src="/images/hero.png"
+        alt={t.about.imageAlt}
         fill
         priority
-        className="animate-ken-burns object-cover"
+        className="animate-ken-burns object-cover object-[center_35%]"
         sizes="100vw"
       />
 
@@ -24,7 +29,7 @@ export function Hero() {
           style={{ animationDelay: "0.2s" }}
         >
           <span className="h-2 w-2 animate-pulse rounded-full bg-red-500" />
-          Ristorante · Meldorf
+          {t.hero.badge}
         </div>
 
         <h1
@@ -38,31 +43,20 @@ export function Hero() {
           className="mt-6 max-w-2xl animate-slide-up text-lg font-light text-white/80 opacity-0 [animation-fill-mode:forwards] md:text-xl"
           style={{ animationDelay: "0.5s" }}
         >
-          Authentische italienische Küche am Südermarkt — Pizza aus dem Ofen,
-          hausgemachte Pasta und feine Antipasti in gemütlichem Ambiente.
+          {t.hero.subtitle}
         </p>
 
         <div
-          className="mt-10 flex flex-wrap justify-center gap-4 animate-slide-up opacity-0 [animation-fill-mode:forwards]"
+          className="mt-10 animate-slide-up opacity-0 [animation-fill-mode:forwards]"
           style={{ animationDelay: "0.65s" }}
         >
           <Link
             href="/menu"
             className="inline-flex h-14 items-center gap-2 rounded-full bg-primary px-8 text-lg font-medium text-primary-foreground transition hover:bg-primary/90"
           >
-            Speisekarte & Bestellen
-            <svg
-              className="h-5 w-5"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M17 8l4 4m0 0l-4 4m4-4H3"
-              />
+            {t.hero.cta}
+            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
             </svg>
           </Link>
         </div>

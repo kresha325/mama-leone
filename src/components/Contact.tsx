@@ -1,3 +1,6 @@
+"use client";
+
+import { useLanguage } from "@/contexts/language-context";
 import { business } from "@/data/menu";
 import { MENU_BURGUNDY } from "@/lib/menu-theme";
 
@@ -27,6 +30,8 @@ function PhoneIcon() {
 }
 
 export function Contact() {
+  const { t } = useLanguage();
+
   return (
     <section id="contact" className="py-14 md:py-20">
       <div className="container-page">
@@ -45,7 +50,7 @@ export function Contact() {
                 <MapPinIcon />
               </div>
               <h3 className="font-menu text-2xl font-bold transition group-hover:text-primary">
-                Standort
+                {t.contact.location}
               </h3>
               <p className="text-muted-foreground">
                 {business.address.street}
@@ -58,12 +63,12 @@ export function Contact() {
               <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
                 <ClockIcon />
               </div>
-              <h3 className="font-menu text-2xl font-bold">Öffnungszeiten</h3>
+              <h3 className="font-menu text-2xl font-bold">{t.contact.hours}</h3>
               <div className="space-y-1 text-muted-foreground">
-                <p>{business.hours.weekdays}</p>
-                <p>{business.hours.lunch}</p>
-                <p>{business.hours.dinner}</p>
-                <p className="font-medium text-primary">{business.hours.closed}</p>
+                <p>{t.businessHours.weekdays}</p>
+                <p>{t.businessHours.lunch}</p>
+                <p>{t.businessHours.dinner}</p>
+                <p className="font-medium text-primary">{t.businessHours.closed}</p>
               </div>
             </div>
 
@@ -76,7 +81,7 @@ export function Contact() {
                   <PhoneIcon />
                 </div>
                 <h3 className="font-menu text-2xl font-bold transition group-hover:text-primary">
-                  Reservierung
+                  {t.contact.reservation}
                 </h3>
                 <p className="text-muted-foreground">{business.phone}</p>
               </a>
@@ -97,7 +102,7 @@ export function Contact() {
           style={{ borderColor: MENU_BURGUNDY }}
         >
           <iframe
-            title="Mama Leone Standort"
+            title={t.contact.mapTitle}
             src={`https://maps.google.com/maps?q=${encodeURIComponent(business.address.full)}&t=&z=16&ie=UTF8&iwloc=&output=embed`}
             className="h-[360px] w-full md:h-[420px]"
             loading="lazy"
