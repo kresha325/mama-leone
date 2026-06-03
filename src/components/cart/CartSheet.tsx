@@ -4,24 +4,36 @@ import { useEffect, useState } from "react";
 import { useCartContext } from "@/contexts/cart-context";
 import { useLanguage } from "@/contexts/language-context";
 import { business, formatPrice } from "@/data/menu";
+import type { Language } from "@/lib/i18n/languages";
+import { getCategoryTitle } from "@/lib/i18n/menu-i18n";
 import type { Translations } from "@/lib/i18n/translations";
+import type { CartItem } from "@/hooks/use-cart";
 
 interface CartSheetProps {
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }
 
+function cartCategoryLabel(item: CartItem, lang: Language) {
+  if (item.categoryId) {
+    return getCategoryTitle(lang, item.categoryId, item.category ?? "");
+  }
+  return item.category ?? "";
+}
+
 function buildOrderText(
-  cart: ReturnType<typeof useCartContext>["cart"],
+  cart: CartItem[],
   note: string,
   total: number,
-  t: Translations
+  t: Translations,
+  lang: Language
 ) {
   const lines = [t.cart.orderGreeting, t.cart.orderIntro, ""];
 
   cart.forEach((item, index) => {
+    const category = cartCategoryLabel(item, lang);
     lines.push(
-      `${index + 1}. ${item.quantity}x ${item.name} (${item.category}) - ${formatPrice(item.price * item.quantity)}`
+      `${index + 1}. ${item.quantity}x ${item.name} (${category}) - ${formatPrice(item.price * item.quantity)}`
     );
   });
 
@@ -39,7 +51,7 @@ function buildOrderText(
 }
 
 export function CartSheet({ open, onOpenChange }: CartSheetProps) {
-  const { t } = useLanguage();
+  const { t, lang } = useLanguage();
   const {
     cart,
     note,
@@ -72,7 +84,7 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
 
   const handleSms = () => {
     if (cart.length === 0) return;
-    const body = encodeURIComponent(buildOrderText(cart, note, cartTotal, t));
+    const body = encodeURIComponent(buildOrderText(cart, note, cartTotal, t, lang));
     const isIOS = /iPhone|iPad|iPod/i.test(navigator.userAgent);
     const separator = isIOS ? "&" : "?";
     window.open(
@@ -144,7 +156,9 @@ export function CartSheet({ open, onOpenChange }: CartSheetProps) {
                         <div className="flex items-start justify-between gap-3">
                           <div>
                             <h3 className="font-medium leading-tight">{item.name}</h3>
-                            <p className="mt-1 text-xs text-muted-foreground">{item.category}</p>
+                            <p className="mt-1 text-xs text-muted-foreground">
+                              {cartCategoryLabel(item, lang)}
+                            </p>
                           </div>
                           <button
                             type="button"

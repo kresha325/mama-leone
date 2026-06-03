@@ -11,7 +11,8 @@ export type Language =
   | "is";
 
 export const DEFAULT_LANGUAGE: Language = "de";
-export const STORAGE_KEY = "ml_lang";
+/** User-selected language; absent = site default (German). */
+export const STORAGE_KEY = "ml_lang_choice";
 
 export const LANGUAGES: {
   code: Language;

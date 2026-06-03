@@ -5,7 +5,9 @@ import type { MenuItem } from "@/data/menu";
 
 export interface CartItem extends MenuItem {
   quantity: number;
-  category: string;
+  categoryId: string;
+  /** @deprecated legacy carts stored the German title */
+  category?: string;
 }
 
 const CART_KEY = "ml_cart";
@@ -51,17 +53,17 @@ export function useCart() {
     window.localStorage.setItem(NOTE_KEY, note);
   }, [note, hydrated]);
 
-  const addToCart = (item: MenuItem, category: string) => {
+  const addToCart = (item: MenuItem, categoryId: string) => {
     setCart((prev) => {
       const existing = prev.find((entry) => entry.id === item.id);
       if (existing) {
         return prev.map((entry) =>
           entry.id === item.id
-            ? { ...entry, quantity: entry.quantity + 1 }
+            ? { ...entry, quantity: entry.quantity + 1, categoryId }
             : entry
         );
       }
-      return [...prev, { ...item, quantity: 1, category }];
+      return [...prev, { ...item, quantity: 1, categoryId }];
     });
   };
 

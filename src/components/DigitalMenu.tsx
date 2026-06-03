@@ -21,13 +21,13 @@ import { MENU_FOOD } from "@/lib/menu-theme";
 
 function MenuFoodItem({
   item,
-  category,
+  categoryId,
   lang,
   t,
   onAdded,
 }: {
   item: MenuItem;
-  category: string;
+  categoryId: string;
   lang: Language;
   t: Translations;
   onAdded: (name: string) => void;
@@ -36,7 +36,7 @@ function MenuFoodItem({
   const description = getItemDescription(lang, item.id, item.description);
 
   const handleAdd = () => {
-    addToCart(item, category);
+    addToCart(item, categoryId);
     onAdded(item.name);
   };
 
@@ -248,7 +248,7 @@ export function DigitalMenu() {
                     <MenuFoodItem
                       key={item.id}
                       item={item}
-                      category={category.title}
+                      categoryId={category.id}
                       lang={lang}
                       t={t}
                       onAdded={handleAdded}

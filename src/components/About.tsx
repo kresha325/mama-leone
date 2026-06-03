@@ -2,7 +2,6 @@
 
 import Image from "next/image";
 import { useLanguage } from "@/contexts/language-context";
-import { business } from "@/data/menu";
 import { MENU_BURGUNDY } from "@/lib/menu-theme";
 
 export function About() {
@@ -55,7 +54,7 @@ export function About() {
               <p className="font-menu text-base font-medium leading-snug sm:text-lg">
                 &ldquo;{t.about.quote}&rdquo;
               </p>
-              <p className="mt-3 text-sm text-muted-foreground">{business.tagline}</p>
+              <p className="mt-3 text-sm text-muted-foreground">{t.common.tagline}</p>
             </div>
           </div>
         </div>

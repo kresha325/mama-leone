@@ -57,6 +57,9 @@ export function Contact() {
                 <br />
                 {business.address.zip} {business.address.city}
               </p>
+              <span className="text-sm text-primary underline-offset-2 transition group-hover:underline">
+                {t.contact.openMaps} →
+              </span>
             </a>
 
             <div className="flex flex-col items-center space-y-4 pt-8 md:pt-0">
@@ -95,19 +98,6 @@ export function Contact() {
               </a>
             </div>
           </div>
-        </div>
-
-        <div
-          className="mt-8 overflow-hidden rounded-2xl border shadow-lg"
-          style={{ borderColor: MENU_BURGUNDY }}
-        >
-          <iframe
-            title={t.contact.mapTitle}
-            src={`https://maps.google.com/maps?q=${encodeURIComponent(business.address.full)}&t=&z=16&ie=UTF8&iwloc=&output=embed`}
-            className="h-[360px] w-full md:h-[420px]"
-            loading="lazy"
-            referrerPolicy="no-referrer-when-downgrade"
-          />
         </div>
       </div>
     </section>

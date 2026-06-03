@@ -1,6 +1,11 @@
+"use client";
+
 import { business } from "@/data/menu";
+import { useLanguage } from "@/contexts/language-context";
 
 export function BrandLogo({ compact = false }: { compact?: boolean }) {
+  const { t } = useLanguage();
+
   if (compact) {
     return (
       <div className="leading-none">
@@ -8,7 +13,7 @@ export function BrandLogo({ compact = false }: { compact?: boolean }) {
           {business.name}
         </span>
         <span className="mt-0.5 block text-[10px] uppercase tracking-[0.2em] text-muted-foreground">
-          {business.tagline}
+          {t.common.tagline}
         </span>
       </div>
     );
@@ -20,7 +25,7 @@ export function BrandLogo({ compact = false }: { compact?: boolean }) {
         {business.name}
       </span>
       <span className="mt-1 text-[10px] uppercase tracking-[0.25em] text-muted-foreground">
-        {business.tagline}
+        {t.common.tagline}
       </span>
     </div>
   );

@@ -24,7 +24,9 @@ export const business = {
   },
   social: {
     googleMaps:
-      "https://www.google.com/maps/search/?api=1&query=Südermarkt+7,+25704+Meldorf",
+      "https://www.google.com/maps/place/Ristorante+Mama+Leone/@54.0897857,9.0714295,17z",
+    googleMapsEmbed:
+      "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2340.095300245535!2d9.068854576812237!3d54.089785672514274!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x47b3f34a8bd0cd27%3A0x8c209eec1624034c!2sRistorante%20Mama%20Leone!5e0!3m2!1sen!2sde!4v1780524700712!5m2!1sen!2sde",
   },
 } as const;
 

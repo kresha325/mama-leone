@@ -48,6 +48,7 @@ export type Translations = {
     hours: string;
     reservation: string;
     mapTitle: string;
+    openMaps: string;
   };
   footer: {
     explore: string;
@@ -111,6 +112,7 @@ export type Translations = {
   common: {
     with: string;
     specialtyLabel: string;
+    tagline: string;
   };
 };
 
@@ -152,6 +154,7 @@ const de: Translations = {
     hours: "Öffnungszeiten",
     reservation: "Reservierung",
     mapTitle: "Mama Leone Standort",
+    openMaps: "In Google Maps öffnen",
   },
   footer: {
     explore: "Entdecken",
@@ -234,6 +237,7 @@ const de: Translations = {
   common: {
     with: "Mit",
     specialtyLabel: "Spezialität",
+    tagline: "Ristorante Pizzeria",
   },
 };
 
@@ -271,6 +275,7 @@ const en: Translations = {
     hours: "Opening hours",
     reservation: "Reservation",
     mapTitle: "Mama Leone location",
+    openMaps: "Open in Google Maps",
   },
   footer: {
     explore: "Explore",
@@ -352,6 +357,7 @@ const en: Translations = {
   common: {
     with: "With",
     specialtyLabel: "Specialty",
+    tagline: "Ristorante Pizzeria",
   },
 };
 
@@ -389,6 +395,7 @@ const it: Translations = {
     hours: "Orari",
     reservation: "Prenotazione",
     mapTitle: "Posizione Mama Leone",
+    openMaps: "Apri in Google Maps",
   },
   footer: {
     explore: "Scopri",
@@ -470,6 +477,7 @@ const it: Translations = {
   common: {
     with: "Con",
     specialtyLabel: "Specialità",
+    tagline: "Ristorante Pizzeria",
   },
 };
 
@@ -507,6 +515,7 @@ const fr: Translations = {
     hours: "Horaires",
     reservation: "Réservation",
     mapTitle: "Emplacement Mama Leone",
+    openMaps: "Ouvrir dans Google Maps",
   },
   footer: {
     explore: "Découvrir",
@@ -588,6 +597,7 @@ const fr: Translations = {
   common: {
     with: "Avec",
     specialtyLabel: "Spécialité",
+    tagline: "Ristorante Pizzeria",
   },
 };
 
@@ -625,6 +635,7 @@ const sq: Translations = {
     hours: "Orari",
     reservation: "Rezervim",
     mapTitle: "Vendndodhja e Mama Leone",
+    openMaps: "Hap në Google Maps",
   },
   footer: {
     explore: "Eksploro",
@@ -706,6 +717,7 @@ const sq: Translations = {
   common: {
     with: "Me",
     specialtyLabel: "Specialitet",
+    tagline: "Ristorante Pizzeria",
   },
 };
 
@@ -743,6 +755,7 @@ const sv: Translations = {
     hours: "Öppettider",
     reservation: "Bokning",
     mapTitle: "Mama Leone plats",
+    openMaps: "Öppna i Google Maps",
   },
   footer: {
     explore: "Utforska",
@@ -824,6 +837,7 @@ const sv: Translations = {
   common: {
     with: "Med",
     specialtyLabel: "Specialitet",
+    tagline: "Ristorante Pizzeria",
   },
 };
 
@@ -861,6 +875,7 @@ const no: Translations = {
     hours: "Åpningstider",
     reservation: "Reservasjon",
     mapTitle: "Mama Leone beliggenhet",
+    openMaps: "Åpne i Google Maps",
   },
   footer: {
     explore: "Utforsk",
@@ -942,6 +957,7 @@ const no: Translations = {
   common: {
     with: "Med",
     specialtyLabel: "Spesialitet",
+    tagline: "Ristorante Pizzeria",
   },
 };
 
@@ -979,6 +995,7 @@ const da: Translations = {
     hours: "Åbningstider",
     reservation: "Reservation",
     mapTitle: "Mama Leone beliggenhed",
+    openMaps: "Åbn i Google Maps",
   },
   footer: {
     explore: "Udforsk",
@@ -1060,6 +1077,7 @@ const da: Translations = {
   common: {
     with: "Med",
     specialtyLabel: "Specialitet",
+    tagline: "Ristorante Pizzeria",
   },
 };
 
@@ -1097,6 +1115,7 @@ const fi: Translations = {
     hours: "Aukioloajat",
     reservation: "Varaus",
     mapTitle: "Mama Leonen sijainti",
+    openMaps: "Avaa Google Mapsissa",
   },
   footer: {
     explore: "Tutustu",
@@ -1178,6 +1197,7 @@ const fi: Translations = {
   common: {
     with: "Kanssa",
     specialtyLabel: "Erikoisuus",
+    tagline: "Ristorante Pizzeria",
   },
 };
 
@@ -1215,6 +1235,7 @@ const is: Translations = {
     hours: "Opnunartími",
     reservation: "Bókun",
     mapTitle: "Staðsetning Mama Leone",
+    openMaps: "Opna í Google Maps",
   },
   footer: {
     explore: "Skoða",
@@ -1296,6 +1317,7 @@ const is: Translations = {
   common: {
     with: "Með",
     specialtyLabel: "Sérstakur",
+    tagline: "Ristorante Pizzeria",
   },
 };
 
