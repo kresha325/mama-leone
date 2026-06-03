@@ -1,4 +1,5 @@
 import Image from "next/image";
+import Link from "next/link";
 import { business } from "@/data/menu";
 
 export function Hero() {
@@ -42,14 +43,14 @@ export function Hero() {
         </p>
 
         <div
-          className="mt-10 animate-slide-up opacity-0 [animation-fill-mode:forwards]"
+          className="mt-10 flex flex-wrap justify-center gap-4 animate-slide-up opacity-0 [animation-fill-mode:forwards]"
           style={{ animationDelay: "0.65s" }}
         >
-          <a
-            href="#menu"
+          <Link
+            href="/menu"
             className="inline-flex h-14 items-center gap-2 rounded-full bg-primary px-8 text-lg font-medium text-primary-foreground transition hover:bg-primary/90"
           >
-            Speisekarte entdecken
+            Speisekarte & Bestellen
             <svg
               className="h-5 w-5"
               fill="none"
@@ -63,7 +64,7 @@ export function Hero() {
                 d="M17 8l4 4m0 0l-4 4m4-4H3"
               />
             </svg>
-          </a>
+          </Link>
         </div>
       </div>
     </section>

@@ -2,18 +2,25 @@
 
 import { useEffect, useState } from "react";
 import Image from "next/image";
+import Link from "next/link";
+import { usePathname } from "next/navigation";
 import { BrandLogo } from "@/components/BrandLogo";
+import { CartSheet } from "@/components/cart/CartSheet";
+import { useCartContext } from "@/contexts/cart-context";
 import { business } from "@/data/menu";
 
 const navLinks = [
-  { href: "#home", label: "Start" },
-  { href: "#about", label: "Über uns" },
-  { href: "#menu", label: "Speisekarte" },
-  { href: "#contact", label: "Kontakt" },
+  { href: "/", label: "Start" },
+  { href: "/#about", label: "Über uns" },
+  { href: "/menu", label: "Speisekarte" },
+  { href: "/#contact", label: "Kontakt" },
 ];
 
 export function Header() {
+  const pathname = usePathname();
+  const { cartCount } = useCartContext();
   const [menuOpen, setMenuOpen] = useState(false);
+  const [cartOpen, setCartOpen] = useState(false);
 
   useEffect(() => {
     document.body.style.overflow = menuOpen ? "hidden" : "";
@@ -33,90 +40,131 @@ export function Header() {
     return () => window.removeEventListener("keydown", onKeyDown);
   }, [menuOpen]);
 
+  const isActive = (href: string) => {
+    if (href === "/menu") return pathname === "/menu";
+    if (href === "/") return pathname === "/";
+    return false;
+  };
+
   return (
-    <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
-      <div className="container-page flex h-20 items-center justify-between">
-        <a
-          href="#home"
-          className="group flex shrink-0 items-center gap-2.5 md:gap-3"
-        >
-          <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full shadow-sm ring-1 ring-border md:h-11 md:w-11">
-            <Image
-              src="/images/logo.png"
-              alt={business.name}
-              fill
-              className="object-cover object-top"
-              priority
-            />
-          </div>
-          <BrandLogo compact />
-        </a>
-
-        <nav className="hidden items-center gap-8 md:flex">
-          {navLinks.map((link) => (
-            <a
-              key={link.href}
-              href={link.href}
-              className="text-sm font-medium text-foreground/80 transition hover:text-primary"
-            >
-              {link.label}
-            </a>
-          ))}
-          <a
-            href={`tel:${business.phoneLink}`}
-            className="rounded-full bg-primary px-5 py-2 text-sm font-medium text-primary-foreground transition hover:bg-primary/90"
+    <>
+      <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
+        <div className="container-page flex h-20 items-center justify-between">
+          <Link
+            href="/"
+            className="group flex shrink-0 items-center gap-2.5 md:gap-3"
           >
-            Reservieren
-          </a>
-        </nav>
+            <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full shadow-sm ring-1 ring-border md:h-11 md:w-11">
+              <Image
+                src="/images/logo.png"
+                alt={business.name}
+                fill
+                className="object-cover object-top"
+                priority
+              />
+            </div>
+            <BrandLogo compact />
+          </Link>
 
-        <button
-          type="button"
-          aria-label={menuOpen ? "Menü schließen" : "Menü öffnen"}
-          aria-expanded={menuOpen}
-          className="relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-1.5 md:hidden"
-          onClick={() => setMenuOpen(!menuOpen)}
-        >
-          <span
-            className={`h-0.5 w-6 bg-foreground transition ${menuOpen ? "translate-y-2 rotate-45" : ""}`}
-          />
-          <span
-            className={`h-0.5 w-6 bg-foreground transition ${menuOpen ? "opacity-0" : ""}`}
-          />
-          <span
-            className={`h-0.5 w-6 bg-foreground transition ${menuOpen ? "-translate-y-2 -rotate-45" : ""}`}
-          />
-        </button>
-      </div>
-
-      {menuOpen && (
-        <div className="fixed inset-0 top-20 z-40 md:hidden">
-          <button
-            type="button"
-            aria-label="Menü schließen"
-            className="absolute inset-0 bg-background/98 backdrop-blur-lg"
-            onClick={() => setMenuOpen(false)}
-          />
-          <nav className="relative flex flex-col items-center gap-8 pt-12">
+          <nav className="hidden items-center gap-6 md:flex">
             {navLinks.map((link) => (
-              <a
+              <Link
                 key={link.href}
                 href={link.href}
-                onClick={() => setMenuOpen(false)}
-                className="font-menu text-2xl font-medium text-foreground transition hover:text-primary"
+                className={`text-sm font-medium transition hover:text-primary ${
+                  isActive(link.href) ? "text-primary" : "text-foreground/80"
+                }`}
               >
                 {link.label}
-              </a>
+              </Link>
             ))}
-            <a
-              href={`tel:${business.phoneLink}`}
-              className="mt-4 rounded-full bg-primary px-8 py-3 text-lg font-medium text-primary-foreground"
-            >
-              Jetzt anrufen
-            </a>
           </nav>
+
+          <div className="flex items-center gap-2 md:gap-3">
+            <button
+              type="button"
+              onClick={() => setCartOpen(true)}
+              className="relative flex h-10 w-10 items-center justify-center rounded-full border border-border text-foreground transition hover:border-primary hover:text-primary"
+              aria-label="Warenkorb öffnen"
+            >
+              <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.8} d="M16 11V7a4 4 0 00-8 0v4M5 9h14l1 12H4L5 9z" />
+              </svg>
+              {cartCount > 0 && (
+                <span className="absolute -right-1 -top-1 flex h-5 min-w-5 items-center justify-center rounded-full bg-primary px-1 text-[10px] font-bold text-primary-foreground">
+                  {cartCount}
+                </span>
+              )}
+            </button>
+
+            <Link
+              href={`tel:${business.phoneLink}`}
+              className="hidden rounded-full bg-primary px-5 py-2 text-sm font-medium text-primary-foreground transition hover:bg-primary/90 md:inline-flex"
+            >
+              Reservieren
+            </Link>
+
+            <button
+              type="button"
+              aria-label={menuOpen ? "Menü schließen" : "Menü öffnen"}
+              aria-expanded={menuOpen}
+              className="relative z-50 flex h-10 w-10 flex-col items-center justify-center gap-1.5 md:hidden"
+              onClick={() => setMenuOpen(!menuOpen)}
+            >
+              <span
+                className={`h-0.5 w-6 bg-foreground transition ${menuOpen ? "translate-y-2 rotate-45" : ""}`}
+              />
+              <span
+                className={`h-0.5 w-6 bg-foreground transition ${menuOpen ? "opacity-0" : ""}`}
+              />
+              <span
+                className={`h-0.5 w-6 bg-foreground transition ${menuOpen ? "-translate-y-2 -rotate-45" : ""}`}
+              />
+            </button>
+          </div>
         </div>
-      )}
-    </header>
+
+        {menuOpen && (
+          <div className="fixed inset-0 top-20 z-40 md:hidden">
+            <button
+              type="button"
+              aria-label="Menü schließen"
+              className="absolute inset-0 bg-background/98 backdrop-blur-lg"
+              onClick={() => setMenuOpen(false)}
+            />
+            <nav className="relative flex flex-col items-center gap-8 pt-12">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMenuOpen(false)}
+                  className="font-menu text-2xl font-medium text-foreground transition hover:text-primary"
+                >
+                  {link.label}
+                </Link>
+              ))}
+              <button
+                type="button"
+                onClick={() => {
+                  setMenuOpen(false);
+                  setCartOpen(true);
+                }}
+                className="font-menu text-2xl font-medium text-foreground"
+              >
+                Warenkorb ({cartCount})
+              </button>
+              <Link
+                href={`tel:${business.phoneLink}`}
+                className="mt-4 rounded-full bg-primary px-8 py-3 text-lg font-medium text-primary-foreground"
+              >
+                Jetzt anrufen
+              </Link>
+            </nav>
+          </div>
+        )}
+      </header>
+
+      <CartSheet open={cartOpen} onOpenChange={setCartOpen} />
+    </>
   );
 }

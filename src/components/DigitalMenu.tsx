@@ -9,12 +9,33 @@ import {
   type MenuItem,
 } from "@/data/menu";
 import { MenuSectionFrame } from "@/components/menu/MenuSectionFrame";
+import { useCartContext } from "@/contexts/cart-context";
 import { MENU_FOOD } from "@/lib/menu-theme";
 
-function MenuFoodItem({ item }: { item: MenuItem }) {
+function MenuFoodItem({
+  item,
+  category,
+  onAdded,
+}: {
+  item: MenuItem;
+  category: string;
+  onAdded: (name: string) => void;
+}) {
+  const { addToCart } = useCartContext();
+
+  const handleAdd = () => {
+    addToCart(item, category);
+    onAdded(item.name);
+  };
+
   return (
     <article className="w-full px-1 py-2 md:px-2 md:py-3">
-      <div className="grid w-full grid-cols-[minmax(0,38%)_1fr_auto] items-start gap-x-2 md:flex md:flex-col md:items-center md:gap-0.5 md:text-center">
+      <button
+        type="button"
+        onClick={handleAdd}
+        className="grid w-full grid-cols-[minmax(0,38%)_1fr_auto] items-start gap-x-2 text-left transition hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 md:flex md:flex-col md:items-center md:gap-0.5 md:text-center"
+        aria-label={`${item.name} in den Warenkorb`}
+      >
         <h3
           className="text-[10px] font-bold uppercase leading-tight tracking-[0.03em] md:text-xs"
           style={{ color: MENU_FOOD.title }}
@@ -48,7 +69,7 @@ function MenuFoodItem({ item }: { item: MenuItem }) {
         >
           {formatPrice(item.price)}
         </p>
-      </div>
+      </button>
     </article>
   );
 }
@@ -57,6 +78,7 @@ export function DigitalMenu() {
   const [activeCategory, setActiveCategory] = useState<string>("all");
   const [search, setSearch] = useState("");
   const [hideAllergen, setHideAllergen] = useState<string | null>(null);
+  const [toast, setToast] = useState<string | null>(null);
 
   const filteredCategories = useMemo(() => {
     const query = search.trim().toLowerCase();
@@ -88,131 +110,153 @@ export function DigitalMenu() {
       .filter((category) => category.items.length > 0);
   }, [search, hideAllergen, activeCategory]);
 
+  const handleAdded = (name: string) => {
+    setToast(`${name} hinzugefügt`);
+    window.setTimeout(() => setToast(null), 2200);
+  };
+
   return (
-    <section id="menu" className="bg-background py-14 md:py-20">
-      <div className="container-page max-w-5xl">
-        <div className="text-center">
-          <span className="text-sm font-medium uppercase tracking-[0.25em] text-primary">
-            Digitale Speisekarte
-          </span>
-          <h2 className="mt-3 font-menu text-4xl font-bold uppercase tracking-[0.08em] text-foreground md:text-5xl">
-            La Nostra Carta
-          </h2>
-        </div>
+    <>
+      <section className="bg-background py-14 md:py-20">
+        <div className="container-page max-w-5xl">
+          <div className="text-center">
+            <span className="text-sm font-medium uppercase tracking-[0.25em] text-primary">
+              Digitale Speisekarte
+            </span>
+            <h1 className="mt-3 font-menu text-4xl font-bold uppercase tracking-[0.08em] text-foreground md:text-5xl">
+              La Nostra Carta
+            </h1>
+            <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
+              Tippen Sie auf ein Gericht, um es in den Warenkorb zu legen und
+              Ihre Bestellung selbst aufzugeben.
+            </p>
+          </div>
 
-        <div className="sticky top-20 z-30 mt-8 space-y-4 rounded-2xl border border-border bg-card/95 p-4 shadow-sm backdrop-blur-md">
-          <input
-            type="search"
-            placeholder="Gericht suchen…"
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full rounded-full border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary/40 focus:outline-none focus:ring-2 focus:ring-primary/20"
-          />
+          <div className="sticky top-20 z-30 mt-8 space-y-4 rounded-2xl border border-border bg-card/95 p-4 shadow-sm backdrop-blur-md">
+            <input
+              type="search"
+              placeholder="Gericht suchen…"
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="w-full rounded-full border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary/40 focus:outline-none focus:ring-2 focus:ring-primary/20"
+            />
 
-          <div className="flex flex-wrap gap-2">
-            <button
-              type="button"
-              onClick={() => setActiveCategory("all")}
-              className={`rounded-full border px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.07em] transition ${
-                activeCategory === "all"
-                  ? "border-primary bg-primary text-primary-foreground"
-                  : "border-border bg-background text-foreground/70 hover:border-primary/30"
-              }`}
-            >
-              Alle
-            </button>
-            {menuCategories.map((cat) => (
+            <div className="flex flex-wrap gap-2">
               <button
-                key={cat.id}
                 type="button"
-                onClick={() => setActiveCategory(cat.id)}
+                onClick={() => setActiveCategory("all")}
                 className={`rounded-full border px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.07em] transition ${
-                  activeCategory === cat.id
+                  activeCategory === "all"
                     ? "border-primary bg-primary text-primary-foreground"
                     : "border-border bg-background text-foreground/70 hover:border-primary/30"
                 }`}
               >
-                {cat.title}
+                Alle
               </button>
-            ))}
-          </div>
-
-          <details className="text-sm text-muted-foreground">
-            <summary className="cursor-pointer font-medium text-foreground/80">
-              Allergen-Filter
-            </summary>
-            <div className="mt-3 flex flex-wrap gap-2">
-              <button
-                type="button"
-                onClick={() => setHideAllergen(null)}
-                className={`rounded-full px-3 py-1 text-xs ${
-                  !hideAllergen
-                    ? "bg-primary/10 text-primary"
-                    : "bg-muted text-muted-foreground"
-                }`}
-              >
-                Kein Filter
-              </button>
-              {(Object.keys(allergenLegend) as AllergenCode[]).map((code) => (
+              {menuCategories.map((cat) => (
                 <button
-                  key={code}
+                  key={cat.id}
                   type="button"
-                  title={allergenLegend[code]}
-                  onClick={() =>
-                    setHideAllergen(hideAllergen === code ? null : code)
-                  }
-                  className={`rounded-full px-3 py-1 text-xs font-semibold ${
-                    hideAllergen === code
+                  onClick={() => setActiveCategory(cat.id)}
+                  className={`rounded-full border px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.07em] transition ${
+                    activeCategory === cat.id
+                      ? "border-primary bg-primary text-primary-foreground"
+                      : "border-border bg-background text-foreground/70 hover:border-primary/30"
+                  }`}
+                >
+                  {cat.title}
+                </button>
+              ))}
+            </div>
+
+            <details className="text-sm text-muted-foreground">
+              <summary className="cursor-pointer font-medium text-foreground/80">
+                Allergen-Filter
+              </summary>
+              <div className="mt-3 flex flex-wrap gap-2">
+                <button
+                  type="button"
+                  onClick={() => setHideAllergen(null)}
+                  className={`rounded-full px-3 py-1 text-xs ${
+                    !hideAllergen
                       ? "bg-primary/10 text-primary"
                       : "bg-muted text-muted-foreground"
                   }`}
                 >
-                  {code}
+                  Kein Filter
                 </button>
-              ))}
+                {(Object.keys(allergenLegend) as AllergenCode[]).map((code) => (
+                  <button
+                    key={code}
+                    type="button"
+                    title={allergenLegend[code]}
+                    onClick={() =>
+                      setHideAllergen(hideAllergen === code ? null : code)
+                    }
+                    className={`rounded-full px-3 py-1 text-xs font-semibold ${
+                      hideAllergen === code
+                        ? "bg-primary/10 text-primary"
+                        : "bg-muted text-muted-foreground"
+                    }`}
+                  >
+                    {code}
+                  </button>
+                ))}
+              </div>
+            </details>
+          </div>
+
+          <div className="mt-10 space-y-8">
+            {filteredCategories.length === 0 ? (
+              <p className="py-12 text-center text-muted-foreground">
+                Keine Gerichte gefunden.
+              </p>
+            ) : (
+              filteredCategories.map((category) => (
+                <MenuSectionFrame
+                  key={category.id}
+                  title={category.title}
+                  note={category.note}
+                  borderColor={MENU_FOOD.border}
+                  backgroundColor={MENU_FOOD.bg}
+                  titleColor={MENU_FOOD.title}
+                >
+                  {category.items.map((item) => (
+                    <MenuFoodItem
+                      key={item.id}
+                      item={item}
+                      category={category.title}
+                      onAdded={handleAdded}
+                    />
+                  ))}
+                </MenuSectionFrame>
+              ))
+            )}
+          </div>
+
+          <details className="mt-10 rounded-2xl border border-border bg-card p-6">
+            <summary className="cursor-pointer font-menu text-lg font-semibold text-foreground">
+              Allergen- & Zusatzstoffkennzeichnung
+            </summary>
+            <div className="mt-4 grid gap-2 sm:grid-cols-2">
+              {(Object.entries(allergenLegend) as [AllergenCode, string][]).map(
+                ([code, label]) => (
+                  <p key={code} className="text-sm text-muted-foreground">
+                    <span className="mr-2 font-semibold text-primary">{code}</span>
+                    {label}
+                  </p>
+                )
+              )}
             </div>
           </details>
         </div>
+      </section>
 
-        <div className="mt-10 space-y-8">
-          {filteredCategories.length === 0 ? (
-            <p className="py-12 text-center text-muted-foreground">
-              Keine Gerichte gefunden.
-            </p>
-          ) : (
-            filteredCategories.map((category) => (
-              <MenuSectionFrame
-                key={category.id}
-                title={category.title}
-                note={category.note}
-                borderColor={MENU_FOOD.border}
-                backgroundColor={MENU_FOOD.bg}
-                titleColor={MENU_FOOD.title}
-              >
-                {category.items.map((item) => (
-                  <MenuFoodItem key={item.id} item={item} />
-                ))}
-              </MenuSectionFrame>
-            ))
-          )}
+      {toast && (
+        <div className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 rounded-full bg-foreground px-5 py-3 text-sm text-background shadow-lg">
+          {toast}
         </div>
-
-        <details className="mt-10 rounded-2xl border border-border bg-card p-6">
-          <summary className="cursor-pointer font-menu text-lg font-semibold text-foreground">
-            Allergen- & Zusatzstoffkennzeichnung
-          </summary>
-          <div className="mt-4 grid gap-2 sm:grid-cols-2">
-            {(Object.entries(allergenLegend) as [AllergenCode, string][]).map(
-              ([code, label]) => (
-                <p key={code} className="text-sm text-muted-foreground">
-                  <span className="mr-2 font-semibold text-primary">{code}</span>
-                  {label}
-                </p>
-              )
-            )}
-          </div>
-        </details>
-      </div>
-    </section>
+      )}
+    </>
   );
 }
