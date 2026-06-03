@@ -18,10 +18,10 @@ export const business = {
   },
   hours: {
     weekdays: "täglich",
-    lunch: "11:30 – 14:30 Uhr",
-    dinner: "17:30 – 22:00 Uhr",
+    schedule: "12:00 – 21:00 Uhr",
     closed: "Dienstag Ruhetag",
   },
+  whatsappLink: "https://wa.me/4948329787888",
   social: {
     googleMaps:
       "https://www.google.com/maps/place/Ristorante+Mama+Leone/@54.0897857,9.0714295,17z",

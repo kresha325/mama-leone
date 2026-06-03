@@ -1,7 +1,9 @@
 "use client";
 
+import { useEffect, useState } from "react";
 import { useLanguage } from "@/contexts/language-context";
 import { business } from "@/data/menu";
+import { getOpeningStatus } from "@/lib/opening-hours";
 import { MENU_BURGUNDY } from "@/lib/menu-theme";
 
 function MapPinIcon() {
@@ -29,77 +31,198 @@ function PhoneIcon() {
   );
 }
 
-export function Contact() {
-  const { t } = useLanguage();
+function ContactTile({
+  icon,
+  label,
+  onClick,
+}: {
+  icon: React.ReactNode;
+  label: string;
+  onClick: () => void;
+}) {
+  return (
+    <button
+      type="button"
+      onClick={onClick}
+      className="group flex w-full flex-col items-center space-y-4 pt-8 transition focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 md:pt-0"
+    >
+      <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary transition group-hover:bg-primary group-hover:text-white">
+        {icon}
+      </div>
+      <h3 className="font-menu text-2xl font-bold transition group-hover:text-primary">
+        {label}
+      </h3>
+    </button>
+  );
+}
+
+function ModalShell({
+  open,
+  onClose,
+  title,
+  children,
+}: {
+  open: boolean;
+  onClose: () => void;
+  title: string;
+  children: React.ReactNode;
+}) {
+  useEffect(() => {
+    if (!open) return;
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (event.key === "Escape") onClose();
+    };
+    document.body.style.overflow = "hidden";
+    window.addEventListener("keydown", onKeyDown);
+    return () => {
+      document.body.style.overflow = "";
+      window.removeEventListener("keydown", onKeyDown);
+    };
+  }, [open, onClose]);
+
+  if (!open) return null;
 
   return (
-    <section id="contact" className="py-14 md:py-20">
-      <div className="container-page">
-        <div
-          className="rounded-3xl border bg-card p-8 shadow-xl md:p-12"
-          style={{ borderColor: MENU_BURGUNDY }}
-        >
-          <div className="grid grid-cols-1 gap-8 divide-y divide-border text-center md:grid-cols-3 md:gap-10 md:divide-x md:divide-y-0">
-            <a
-              href={business.social.googleMaps}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="group flex flex-col items-center space-y-4 pt-8 md:pt-0"
-            >
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary transition group-hover:bg-primary group-hover:text-white">
-                <MapPinIcon />
-              </div>
-              <h3 className="font-menu text-2xl font-bold transition group-hover:text-primary">
-                {t.contact.location}
-              </h3>
-              <p className="text-muted-foreground">
-                {business.address.street}
-                <br />
-                {business.address.zip} {business.address.city}
-              </p>
-              <span className="text-sm text-primary underline-offset-2 transition group-hover:underline">
-                {t.contact.openMaps} →
-              </span>
-            </a>
+    <div className="fixed inset-0 z-[80] flex items-center justify-center p-4">
+      <button
+        type="button"
+        aria-label="Close"
+        className="absolute inset-0 bg-black/50"
+        onClick={onClose}
+      />
+      <div className="relative w-full max-w-md rounded-2xl border border-border bg-background p-6 shadow-2xl">
+        <h3 className="font-menu text-xl font-bold">{title}</h3>
+        {children}
+      </div>
+    </div>
+  );
+}
 
-            <div className="flex flex-col items-center space-y-4 pt-8 md:pt-0">
-              <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary">
-                <ClockIcon />
-              </div>
-              <h3 className="font-menu text-2xl font-bold">{t.contact.hours}</h3>
-              <div className="space-y-1 text-muted-foreground">
-                <p>{t.businessHours.weekdays}</p>
-                <p>{t.businessHours.lunch}</p>
-                <p>{t.businessHours.dinner}</p>
-                <p className="font-medium text-primary">{t.businessHours.closed}</p>
-              </div>
-            </div>
+export function Contact() {
+  const { t } = useLanguage();
+  const [hoursOpen, setHoursOpen] = useState(false);
+  const [contactOpen, setContactOpen] = useState(false);
+  const [status, setStatus] = useState(() => getOpeningStatus());
 
-            <div className="group flex flex-col items-center space-y-4 pt-8 md:pt-0">
-              <a
-                href={`tel:${business.phoneLink}`}
-                className="flex flex-col items-center space-y-4"
-              >
-                <div className="flex h-16 w-16 items-center justify-center rounded-full bg-primary/10 text-primary transition group-hover:bg-primary group-hover:text-white">
-                  <PhoneIcon />
-                </div>
-                <h3 className="font-menu text-2xl font-bold transition group-hover:text-primary">
-                  {t.contact.reservation}
-                </h3>
-                <p className="text-muted-foreground">{business.phone}</p>
-              </a>
-              <a
-                href={`https://${business.website}`}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="text-sm text-primary transition hover:underline"
-              >
-                {business.website}
-              </a>
+  useEffect(() => {
+    const timer = window.setInterval(() => setStatus(getOpeningStatus()), 60_000);
+    return () => window.clearInterval(timer);
+  }, []);
+
+  useEffect(() => {
+    if (hoursOpen) setStatus(getOpeningStatus());
+  }, [hoursOpen]);
+
+  const statusLabel = (() => {
+    if (status.state === "open") {
+      return {
+        text: t.contact.openNow,
+        detail: t.contact.openUntil.replace("{time}", status.until),
+        tone: "text-green-700",
+      };
+    }
+    if (status.state === "closed_today") {
+      return {
+        text: t.contact.closedNow,
+        detail: t.businessHours.closed,
+        tone: "text-primary",
+      };
+    }
+    return {
+      text: t.contact.closedNow,
+      detail: t.contact.opensAt.replace("{time}", status.nextOpen),
+      tone: "text-muted-foreground",
+    };
+  })();
+
+  const openMaps = () => {
+    window.open(business.social.googleMaps, "_blank", "noopener,noreferrer");
+  };
+
+  return (
+    <>
+      <section id="contact" className="py-14 md:py-20">
+        <div className="container-page">
+          <div
+            className="rounded-3xl border bg-card p-8 shadow-xl md:p-12"
+            style={{ borderColor: MENU_BURGUNDY }}
+          >
+            <div className="grid grid-cols-1 gap-8 divide-y divide-border text-center md:grid-cols-3 md:gap-10 md:divide-x md:divide-y-0">
+              <ContactTile
+                icon={<MapPinIcon />}
+                label={t.contact.location}
+                onClick={openMaps}
+              />
+              <ContactTile
+                icon={<ClockIcon />}
+                label={t.contact.hours}
+                onClick={() => setHoursOpen(true)}
+              />
+              <ContactTile
+                icon={<PhoneIcon />}
+                label={t.contact.reservation}
+                onClick={() => setContactOpen(true)}
+              />
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
+
+      <ModalShell open={hoursOpen} onClose={() => setHoursOpen(false)} title={t.contact.hours}>
+        <div className="mt-4 space-y-4">
+          <div className={`rounded-xl bg-muted/40 p-4 ${statusLabel.tone}`}>
+            <p className="font-semibold">{statusLabel.text}</p>
+            <p className="mt-1 text-sm">{statusLabel.detail}</p>
+          </div>
+          <div className="space-y-2 text-sm text-muted-foreground">
+            <p>
+              <span className="font-medium text-foreground">{t.businessHours.weekdays}</span>
+              <br />
+              {t.businessHours.schedule}
+            </p>
+            <p className="font-medium text-primary">{t.businessHours.closed}</p>
+          </div>
+          <button
+            type="button"
+            onClick={() => setHoursOpen(false)}
+            className="w-full rounded-full border border-border py-2.5 text-sm font-semibold"
+          >
+            {t.cart.cancel}
+          </button>
+        </div>
+      </ModalShell>
+
+      <ModalShell
+        open={contactOpen}
+        onClose={() => setContactOpen(false)}
+        title={t.contact.reservation}
+      >
+        <p className="mt-2 text-sm text-muted-foreground">{t.contact.contactVia}</p>
+        <div className="mt-5 space-y-2">
+          <a
+            href={`tel:${business.phoneLink}`}
+            className="flex w-full items-center justify-center gap-2 rounded-full bg-primary px-4 py-3 text-sm font-semibold text-primary-foreground transition hover:bg-primary/90"
+          >
+            <PhoneIcon />
+            {t.nav.callNow} · {business.phone}
+          </a>
+          <a
+            href={business.whatsappLink}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex w-full items-center justify-center gap-2 rounded-full border border-border px-4 py-3 text-sm font-semibold transition hover:border-primary hover:text-primary"
+          >
+            {t.contact.whatsapp}
+          </a>
+          <button
+            type="button"
+            onClick={() => setContactOpen(false)}
+            className="w-full rounded-full border border-border py-2.5 text-sm font-semibold"
+          >
+            {t.cart.cancel}
+          </button>
+        </div>
+      </ModalShell>
+    </>
   );
 }

@@ -3,7 +3,6 @@
 import {
   createContext,
   useContext,
-  useEffect,
   useState,
   type ReactNode,
 } from "react";
@@ -14,6 +13,8 @@ import {
   type Language,
 } from "@/lib/i18n/languages";
 import { getTranslations, type Translations } from "@/lib/i18n/translations";
+
+const LEGACY_STORAGE_KEY = "ml_lang";
 
 interface LanguageContextValue {
   lang: Language;
@@ -27,33 +28,36 @@ function isLanguage(value: string | null): value is Language {
   return !!value && LANGUAGE_CODES.includes(value as Language);
 }
 
-export function LanguageProvider({ children }: { children: ReactNode }) {
-  const [lang, setLangState] = useState<Language>(DEFAULT_LANGUAGE);
-  const [hydrated, setHydrated] = useState(false);
+function readStoredLanguage(): Language {
+  if (typeof window === "undefined") return DEFAULT_LANGUAGE;
+  try {
+    const stored = localStorage.getItem(STORAGE_KEY);
+    if (isLanguage(stored)) return stored;
 
-  useEffect(() => {
-    try {
-      const stored = localStorage.getItem(STORAGE_KEY);
-      if (isLanguage(stored)) setLangState(stored);
-    } catch {
-      /* ignore */
+    const legacy = localStorage.getItem(LEGACY_STORAGE_KEY);
+    if (isLanguage(legacy)) {
+      localStorage.setItem(STORAGE_KEY, legacy);
+      localStorage.removeItem(LEGACY_STORAGE_KEY);
+      return legacy;
     }
-    setHydrated(true);
-  }, []);
+  } catch {
+    /* ignore */
+  }
+  return DEFAULT_LANGUAGE;
+}
+
+export function LanguageProvider({ children }: { children: ReactNode }) {
+  const [lang, setLangState] = useState<Language>(() => readStoredLanguage());
 
   const setLang = (newLang: Language) => {
     setLangState(newLang);
     try {
       localStorage.setItem(STORAGE_KEY, newLang);
+      localStorage.removeItem(LEGACY_STORAGE_KEY);
     } catch {
       /* ignore */
     }
   };
-
-  useEffect(() => {
-    if (!hydrated) return;
-    document.documentElement.lang = lang;
-  }, [lang, hydrated]);
 
   const t = getTranslations(lang);
 

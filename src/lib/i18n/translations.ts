@@ -43,12 +43,30 @@ export type Translations = {
     quote: string;
     imageAlt: string;
   };
+  gallery: {
+    badge: string;
+    title: string;
+    subtitle: string;
+    scrollHint: string;
+    alts: {
+      kitchen: string;
+      exterior: string;
+      dining: string;
+      terrace: string;
+    };
+  };
   contact: {
     location: string;
     hours: string;
     reservation: string;
     mapTitle: string;
     openMaps: string;
+    openNow: string;
+    closedNow: string;
+    openUntil: string;
+    opensAt: string;
+    contactVia: string;
+    whatsapp: string;
   };
   footer: {
     explore: string;
@@ -58,6 +76,7 @@ export type Translations = {
     rights: string;
     motto: string;
     aboutText: string;
+    phoneLabel: string;
   };
   menu: {
     badge: string;
@@ -102,10 +121,13 @@ export type Translations = {
     muteOn: string;
     muteOff: string;
   };
+  meta: {
+    homeTitle: string;
+    menuTitle: string;
+  };
   businessHours: {
     weekdays: string;
-    lunch: string;
-    dinner: string;
+    schedule: string;
     closed: string;
   };
   allergens: Record<AllergenCode, string>;
@@ -149,12 +171,30 @@ const de: Translations = {
       "Italienische Gastfreundschaft im historischen Fachwerkhaus am Südermarkt.",
     imageAlt: "Mama Leone Restaurant Meldorf",
   },
+  gallery: {
+    badge: "Impressionen",
+    title: "Galerie",
+    subtitle: "Einblicke in unsere Küche, das Ambiente und den Südermarkt in Meldorf.",
+    scrollHint: "← Wischen für mehr Fotos →",
+    alts: {
+      kitchen: "Küche bei Mama Leone",
+      exterior: "Ristorante Mama Leone in Meldorf",
+      dining: "Gastraum und Atmosphäre",
+      terrace: "Außenbereich am Südermarkt",
+    },
+  },
   contact: {
     location: "Standort",
     hours: "Öffnungszeiten",
     reservation: "Reservierung",
     mapTitle: "Mama Leone Standort",
     openMaps: "In Google Maps öffnen",
+    openNow: "Jetzt geöffnet",
+    closedNow: "Geschlossen",
+    openUntil: "Geöffnet bis {time} Uhr",
+    opensAt: "Öffnet um {time} Uhr",
+    contactVia: "Wie möchten Sie uns erreichen?",
+    whatsapp: "WhatsApp",
   },
   footer: {
     explore: "Entdecken",
@@ -165,6 +205,7 @@ const de: Translations = {
     motto: "Buon appetito · Meldorf",
     aboutText:
       "Authentische italienische Küche im Herzen von Meldorf — Ristorante Pizzeria.",
+    phoneLabel: "Tel.",
   },
   menu: {
     badge: "Digitale Speisekarte",
@@ -212,10 +253,13 @@ const de: Translations = {
     muteOn: "Ton einschalten",
     muteOff: "Ton ausschalten",
   },
+  meta: {
+    homeTitle: "Mama Leone – Ristorante Pizzeria | Meldorf",
+    menuTitle: "Speisekarte",
+  },
   businessHours: {
     weekdays: "täglich",
-    lunch: "11:30 – 14:30 Uhr",
-    dinner: "17:30 – 22:00 Uhr",
+    schedule: "12:00 – 21:00 Uhr",
     closed: "Dienstag Ruhetag",
   },
   allergens: {
@@ -270,12 +314,30 @@ const en: Translations = {
       "Italian hospitality in the historic half-timbered house on Südermarkt.",
     imageAlt: "Mama Leone Restaurant Meldorf",
   },
+  gallery: {
+    badge: "Impressions",
+    title: "Gallery",
+    subtitle: "A glimpse of our kitchen, atmosphere and Südermarkt in Meldorf.",
+    scrollHint: "← Swipe for more photos →",
+    alts: {
+      kitchen: "Mama Leone kitchen",
+      exterior: "Mama Leone restaurant in Meldorf",
+      dining: "Dining room and atmosphere",
+      terrace: "Outdoor seating at Südermarkt",
+    },
+  },
   contact: {
     location: "Location",
     hours: "Opening hours",
     reservation: "Reservation",
     mapTitle: "Mama Leone location",
     openMaps: "Open in Google Maps",
+    openNow: "Open now",
+    closedNow: "Closed",
+    openUntil: "Open until {time}",
+    opensAt: "Opens at {time}",
+    contactVia: "How would you like to reach us?",
+    whatsapp: "WhatsApp",
   },
   footer: {
     explore: "Explore",
@@ -286,6 +348,7 @@ const en: Translations = {
     motto: "Buon appetito · Meldorf",
     aboutText:
       "Authentic Italian cuisine in the heart of Meldorf — Ristorante Pizzeria.",
+    phoneLabel: "Tel.",
   },
   menu: {
     badge: "Digital menu",
@@ -332,10 +395,13 @@ const en: Translations = {
     muteOn: "Turn sound on",
     muteOff: "Turn sound off",
   },
+  meta: {
+    homeTitle: "Mama Leone – Ristorante Pizzeria | Meldorf",
+    menuTitle: "Menu",
+  },
   businessHours: {
     weekdays: "daily",
-    lunch: "11:30 am – 2:30 pm",
-    dinner: "5:30 pm – 10:00 pm",
+    schedule: "12:00 – 21:00",
     closed: "Closed on Tuesdays",
   },
   allergens: {
@@ -390,12 +456,30 @@ const it: Translations = {
       "Ospitalità italiana nella storica casa a graticcio di Südermarkt.",
     imageAlt: "Ristorante Mama Leone Meldorf",
   },
+  gallery: {
+    badge: "Impressioni",
+    title: "Galleria",
+    subtitle: "Uno sguardo alla nostra cucina, all'atmosfera e al Südermarkt a Meldorf.",
+    scrollHint: "← Scorri per altre foto →",
+    alts: {
+      kitchen: "Cucina di Mama Leone",
+      exterior: "Ristorante Mama Leone a Meldorf",
+      dining: "Sala e atmosfera",
+      terrace: "Area esterna al Südermarkt",
+    },
+  },
   contact: {
     location: "Dove siamo",
     hours: "Orari",
     reservation: "Prenotazione",
     mapTitle: "Posizione Mama Leone",
     openMaps: "Apri in Google Maps",
+    openNow: "Aperto ora",
+    closedNow: "Chiuso",
+    openUntil: "Aperto fino alle {time}",
+    opensAt: "Apre alle {time}",
+    contactVia: "Come desideri contattarci?",
+    whatsapp: "WhatsApp",
   },
   footer: {
     explore: "Scopri",
@@ -406,6 +490,7 @@ const it: Translations = {
     motto: "Buon appetito · Meldorf",
     aboutText:
       "Autentica cucina italiana nel cuore di Meldorf — Ristorante Pizzeria.",
+    phoneLabel: "Tel.",
   },
   menu: {
     badge: "Menù digitale",
@@ -452,10 +537,13 @@ const it: Translations = {
     muteOn: "Attiva audio",
     muteOff: "Disattiva audio",
   },
+  meta: {
+    homeTitle: "Mama Leone – Ristorante Pizzeria | Meldorf",
+    menuTitle: "Menù",
+  },
   businessHours: {
     weekdays: "tutti i giorni",
-    lunch: "11:30 – 14:30",
-    dinner: "17:30 – 22:00",
+    schedule: "12:00 – 21:00",
     closed: "Chiuso il martedì",
   },
   allergens: {
@@ -510,12 +598,30 @@ const fr: Translations = {
       "Hospitalité italienne dans la maison à colombages historique de Südermarkt.",
     imageAlt: "Restaurant Mama Leone Meldorf",
   },
+  gallery: {
+    badge: "Impressions",
+    title: "Galerie",
+    subtitle: "Un aperçu de notre cuisine, de l'ambiance et du Südermarkt à Meldorf.",
+    scrollHint: "← Faites défiler pour plus de photos →",
+    alts: {
+      kitchen: "Cuisine de Mama Leone",
+      exterior: "Restaurant Mama Leone à Meldorf",
+      dining: "Salle et ambiance",
+      terrace: "Terrasse au Südermarkt",
+    },
+  },
   contact: {
     location: "Adresse",
     hours: "Horaires",
     reservation: "Réservation",
     mapTitle: "Emplacement Mama Leone",
     openMaps: "Ouvrir dans Google Maps",
+    openNow: "Ouvert maintenant",
+    closedNow: "Fermé",
+    openUntil: "Ouvert jusqu'à {time}",
+    opensAt: "Ouvre à {time}",
+    contactVia: "Comment souhaitez-vous nous contacter ?",
+    whatsapp: "WhatsApp",
   },
   footer: {
     explore: "Découvrir",
@@ -526,6 +632,7 @@ const fr: Translations = {
     motto: "Buon appetito · Meldorf",
     aboutText:
       "Cuisine italienne authentique au cœur de Meldorf — Ristorante Pizzeria.",
+    phoneLabel: "Tél.",
   },
   menu: {
     badge: "Carte numérique",
@@ -572,10 +679,13 @@ const fr: Translations = {
     muteOn: "Activer le son",
     muteOff: "Couper le son",
   },
+  meta: {
+    homeTitle: "Mama Leone – Ristorante Pizzeria | Meldorf",
+    menuTitle: "Carte",
+  },
   businessHours: {
     weekdays: "tous les jours",
-    lunch: "11h30 – 14h30",
-    dinner: "17h30 – 22h00",
+    schedule: "12:00 – 21:00",
     closed: "Fermé le mardi",
   },
   allergens: {
@@ -630,12 +740,30 @@ const sq: Translations = {
       "Mikpritje italiane në shtëpinë historike me konstruksion druri në Südermarkt.",
     imageAlt: "Restoranti Mama Leone Meldorf",
   },
+  gallery: {
+    badge: "Impressione",
+    title: "Galeria",
+    subtitle: "Një vështrim në kuzhinën tonë, atmosferën dhe Südermarkt në Meldorf.",
+    scrollHint: "← Rrëshqit për më shumë foto →",
+    alts: {
+      kitchen: "Kuzhina e Mama Leone",
+      exterior: "Restoranti Mama Leone në Meldorf",
+      dining: "Salla dhe atmosfera",
+      terrace: "Terraca në Südermarkt",
+    },
+  },
   contact: {
     location: "Vendndodhja",
     hours: "Orari",
     reservation: "Rezervim",
     mapTitle: "Vendndodhja e Mama Leone",
     openMaps: "Hap në Google Maps",
+    openNow: "Hapur tani",
+    closedNow: "Mbyllur",
+    openUntil: "Hapur deri në {time}",
+    opensAt: "Hapet në {time}",
+    contactVia: "Si dëshironi të na kontaktoni?",
+    whatsapp: "WhatsApp",
   },
   footer: {
     explore: "Eksploro",
@@ -646,6 +774,7 @@ const sq: Translations = {
     motto: "Buon appetito · Meldorf",
     aboutText:
       "Kuzhinë autentike italiane në zemër të Meldorf-it — Ristorante Pizzeria.",
+    phoneLabel: "Tel.",
   },
   menu: {
     badge: "Menyja digjitale",
@@ -692,10 +821,13 @@ const sq: Translations = {
     muteOn: "Ndize zërin",
     muteOff: "Fike zërin",
   },
+  meta: {
+    homeTitle: "Mama Leone – Ristorante Pizzeria | Meldorf",
+    menuTitle: "Menyja",
+  },
   businessHours: {
     weekdays: "çdo ditë",
-    lunch: "11:30 – 14:30",
-    dinner: "17:30 – 22:00",
+    schedule: "12:00 – 21:00",
     closed: "Mbyllur të martën",
   },
   allergens: {
@@ -750,12 +882,30 @@ const sv: Translations = {
       "Italiensk gästfrihet i det historiska korsvirkeshuset vid Südermarkt.",
     imageAlt: "Mama Leone restaurang Meldorf",
   },
+  gallery: {
+    badge: "Impressioner",
+    title: "Galleri",
+    subtitle: "En glimt av vårt kök, atmosfären och Südermarkt i Meldorf.",
+    scrollHint: "← Svep för fler bilder →",
+    alts: {
+      kitchen: "Kök på Mama Leone",
+      exterior: "Mama Leone restaurang i Meldorf",
+      dining: "Matsal och atmosfär",
+      terrace: "Uteservering vid Südermarkt",
+    },
+  },
   contact: {
     location: "Plats",
     hours: "Öppettider",
     reservation: "Bokning",
     mapTitle: "Mama Leone plats",
     openMaps: "Öppna i Google Maps",
+    openNow: "Öppet nu",
+    closedNow: "Stängt",
+    openUntil: "Öppet till {time}",
+    opensAt: "Öppnar {time}",
+    contactVia: "Hur vill du kontakta oss?",
+    whatsapp: "WhatsApp",
   },
   footer: {
     explore: "Utforska",
@@ -766,6 +916,7 @@ const sv: Translations = {
     motto: "Buon appetito · Meldorf",
     aboutText:
       "Autentisk italiensk mat i hjärtat av Meldorf — Ristorante Pizzeria.",
+    phoneLabel: "Tel.",
   },
   menu: {
     badge: "Digital meny",
@@ -812,10 +963,13 @@ const sv: Translations = {
     muteOn: "Slå på ljud",
     muteOff: "Stäng av ljud",
   },
+  meta: {
+    homeTitle: "Mama Leone – Ristorante Pizzeria | Meldorf",
+    menuTitle: "Meny",
+  },
   businessHours: {
     weekdays: "dagligen",
-    lunch: "11:30 – 14:30",
-    dinner: "17:30 – 22:00",
+    schedule: "12:00 – 21:00",
     closed: "Stängt på tisdagar",
   },
   allergens: {
@@ -870,12 +1024,30 @@ const no: Translations = {
       "Italiensk gjestfrihet i det historiske bindingsverkshuset ved Südermarkt.",
     imageAlt: "Mama Leone restaurant Meldorf",
   },
+  gallery: {
+    badge: "Inntrykk",
+    title: "Galleri",
+    subtitle: "Et glimt av kjøkkenet vårt, atmosfæren og Südermarkt i Meldorf.",
+    scrollHint: "← Sveip for flere bilder →",
+    alts: {
+      kitchen: "Kjøkken hos Mama Leone",
+      exterior: "Mama Leone restaurant i Meldorf",
+      dining: "Spisesal og atmosfære",
+      terrace: "Uteservering ved Südermarkt",
+    },
+  },
   contact: {
     location: "Beliggenhet",
     hours: "Åpningstider",
     reservation: "Reservasjon",
     mapTitle: "Mama Leone beliggenhet",
     openMaps: "Åpne i Google Maps",
+    openNow: "Åpent nå",
+    closedNow: "Stengt",
+    openUntil: "Åpent til {time}",
+    opensAt: "Åpner {time}",
+    contactVia: "Hvordan vil du kontakte oss?",
+    whatsapp: "WhatsApp",
   },
   footer: {
     explore: "Utforsk",
@@ -886,6 +1058,7 @@ const no: Translations = {
     motto: "Buon appetito · Meldorf",
     aboutText:
       "Autentisk italiensk mat i hjertet av Meldorf — Ristorante Pizzeria.",
+    phoneLabel: "Tlf.",
   },
   menu: {
     badge: "Digital meny",
@@ -932,10 +1105,13 @@ const no: Translations = {
     muteOn: "Slå på lyd",
     muteOff: "Slå av lyd",
   },
+  meta: {
+    homeTitle: "Mama Leone – Ristorante Pizzeria | Meldorf",
+    menuTitle: "Meny",
+  },
   businessHours: {
     weekdays: "daglig",
-    lunch: "11:30 – 14:30",
-    dinner: "17:30 – 22:00",
+    schedule: "12:00 – 21:00",
     closed: "Stengt på tirsdager",
   },
   allergens: {
@@ -990,12 +1166,30 @@ const da: Translations = {
       "Italiensk gæstfrihed i det historiske bindingsværkshus ved Südermarkt.",
     imageAlt: "Mama Leone restaurant Meldorf",
   },
+  gallery: {
+    badge: "Indtryk",
+    title: "Galleri",
+    subtitle: "Et glimt af vores køkken, atmosfære og Südermarkt i Meldorf.",
+    scrollHint: "← Swipe for flere billeder →",
+    alts: {
+      kitchen: "Køkken hos Mama Leone",
+      exterior: "Mama Leone restaurant i Meldorf",
+      dining: "Spisesal og atmosfære",
+      terrace: "Udendørs siddepladser ved Südermarkt",
+    },
+  },
   contact: {
     location: "Beliggenhed",
     hours: "Åbningstider",
     reservation: "Reservation",
     mapTitle: "Mama Leone beliggenhed",
     openMaps: "Åbn i Google Maps",
+    openNow: "Åbent nu",
+    closedNow: "Lukket",
+    openUntil: "Åbent til {time}",
+    opensAt: "Åbner {time}",
+    contactVia: "Hvordan vil du kontakte os?",
+    whatsapp: "WhatsApp",
   },
   footer: {
     explore: "Udforsk",
@@ -1006,6 +1200,7 @@ const da: Translations = {
     motto: "Buon appetito · Meldorf",
     aboutText:
       "Autentisk italiensk mad i hjertet af Meldorf — Ristorante Pizzeria.",
+    phoneLabel: "Tlf.",
   },
   menu: {
     badge: "Digital menu",
@@ -1052,10 +1247,13 @@ const da: Translations = {
     muteOn: "Slå lyd til",
     muteOff: "Slå lyd fra",
   },
+  meta: {
+    homeTitle: "Mama Leone – Ristorante Pizzeria | Meldorf",
+    menuTitle: "Menu",
+  },
   businessHours: {
     weekdays: "dagligt",
-    lunch: "11:30 – 14:30",
-    dinner: "17:30 – 22:00",
+    schedule: "12:00 – 21:00",
     closed: "Lukket om tirsdagen",
   },
   allergens: {
@@ -1110,12 +1308,30 @@ const fi: Translations = {
       "Italialaista vieraanvaraisuutta historiallisessa Südermarktin puutalo talossa.",
     imageAlt: "Mama Leone -ravintola Meldorf",
   },
+  gallery: {
+    badge: "Vaikutelmia",
+    title: "Galleria",
+    subtitle: "Katsaus keittiöömme, tunnelmaan ja Südermarktiin Meldorfissa.",
+    scrollHint: "← Pyyhkäise nähdäksesi lisää kuvia →",
+    alts: {
+      kitchen: "Mama Leonen keittiö",
+      exterior: "Mama Leone -ravintola Meldorfissa",
+      dining: "Sali ja tunnelma",
+      terrace: "Terassi Südermarktilla",
+    },
+  },
   contact: {
     location: "Sijainti",
     hours: "Aukioloajat",
     reservation: "Varaus",
     mapTitle: "Mama Leonen sijainti",
     openMaps: "Avaa Google Mapsissa",
+    openNow: "Avoinna nyt",
+    closedNow: "Suljettu",
+    openUntil: "Avoinna klo {time} asti",
+    opensAt: "Avautuu klo {time}",
+    contactVia: "Miten haluat ottaa yhteyttä?",
+    whatsapp: "WhatsApp",
   },
   footer: {
     explore: "Tutustu",
@@ -1126,6 +1342,7 @@ const fi: Translations = {
     motto: "Buon appetito · Meldorf",
     aboutText:
       "Aitoa italialaista ruokaa Meldorfin sydämessä — Ristorante Pizzeria.",
+    phoneLabel: "Puh.",
   },
   menu: {
     badge: "Digitaalinen ruokalista",
@@ -1172,10 +1389,13 @@ const fi: Translations = {
     muteOn: "Kytke ääni päälle",
     muteOff: "Kytke ääni pois",
   },
+  meta: {
+    homeTitle: "Mama Leone – Ristorante Pizzeria | Meldorf",
+    menuTitle: "Ruokalista",
+  },
   businessHours: {
     weekdays: "päivittäin",
-    lunch: "11:30 – 14:30",
-    dinner: "17:30 – 22:00",
+    schedule: "12:00 – 21:00",
     closed: "Suljettu tiistaisin",
   },
   allergens: {
@@ -1230,12 +1450,30 @@ const is: Translations = {
       "Ítalsk gestrisni í sögulegu timburhúsi við Südermarkt.",
     imageAlt: "Mama Leone veitingastaður Meldorf",
   },
+  gallery: {
+    badge: "Myndir",
+    title: "Gallerí",
+    subtitle: "Innsýn í eldhúsið okkar, andrúmsloftið og Südermarkt í Meldorf.",
+    scrollHint: "← Strjúktu til að sjá fleiri myndir →",
+    alts: {
+      kitchen: "Eldhús Mama Leone",
+      exterior: "Mama Leone veitingastaður í Meldorf",
+      dining: "Salur og andrúmsloft",
+      terrace: "Útisvæði við Südermarkt",
+    },
+  },
   contact: {
     location: "Staðsetning",
     hours: "Opnunartími",
     reservation: "Bókun",
     mapTitle: "Staðsetning Mama Leone",
     openMaps: "Opna í Google Maps",
+    openNow: "Opið núna",
+    closedNow: "Lokað",
+    openUntil: "Opið til {time}",
+    opensAt: "Opnar kl. {time}",
+    contactVia: "Hvernig viltu hafa samband?",
+    whatsapp: "WhatsApp",
   },
   footer: {
     explore: "Skoða",
@@ -1246,6 +1484,7 @@ const is: Translations = {
     motto: "Buon appetito · Meldorf",
     aboutText:
       "Ekta ítalsk matreiðsla í hjarta Meldorf — Ristorante Pizzeria.",
+    phoneLabel: "Sími",
   },
   menu: {
     badge: "Stafrænn matseðill",
@@ -1292,10 +1531,13 @@ const is: Translations = {
     muteOn: "Kveikja á hljóði",
     muteOff: "Slökkva á hljóði",
   },
+  meta: {
+    homeTitle: "Mama Leone – Ristorante Pizzeria | Meldorf",
+    menuTitle: "Matseðill",
+  },
   businessHours: {
     weekdays: "daglega",
-    lunch: "11:30 – 14:30",
-    dinner: "17:30 – 22:00",
+    schedule: "12:00 – 21:00",
     closed: "Lokað á þriðjudögum",
   },
   allergens: {

@@ -25,7 +25,7 @@ export function LanguageSwitcher({ compact = false }: { compact?: boolean }) {
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className={`flex items-center gap-1.5 rounded-full border border-border bg-background text-foreground transition hover:border-primary hover:text-primary ${
+        className={`notranslate flex items-center gap-1.5 rounded-full border border-border bg-background text-foreground transition hover:border-primary hover:text-primary ${
           compact ? "px-2.5 py-1.5 text-xs" : "px-3 py-2 text-sm"
         }`}
         aria-label={t.nav.language}

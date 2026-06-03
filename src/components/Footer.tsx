@@ -46,7 +46,7 @@ export function Footer() {
             <div className="flex flex-col space-y-2 text-sm text-background/70">
               <p>{business.address.full}</p>
               <a href={`tel:${business.phoneLink}`} className="transition hover:text-primary">
-                Tel. {business.phone}
+                {t.footer.phoneLabel} {business.phone}
               </a>
               <a href={`https://${business.website}`} className="transition hover:text-primary">
                 {business.website}
@@ -54,7 +54,7 @@ export function Footer() {
               <p className="pt-2">
                 {t.businessHours.weekdays}
                 <br />
-                {t.businessHours.lunch} · {t.businessHours.dinner}
+                {t.businessHours.schedule}
                 <br />
                 <span className="text-primary">{t.businessHours.closed}</span>
               </p>

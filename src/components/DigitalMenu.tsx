@@ -89,15 +89,11 @@ function MenuFoodItem({
 export function DigitalMenu() {
   const { lang, t } = useLanguage();
   const [activeCategory, setActiveCategory] = useState<string>("all");
-  const [search, setSearch] = useState("");
-  const [hideAllergen, setHideAllergen] = useState<string | null>(null);
   const [toast, setToast] = useState<string | null>(null);
 
   const allergenCodes = Object.keys(t.allergens) as AllergenCode[];
 
   const filteredCategories = useMemo(() => {
-    const query = search.trim().toLowerCase();
-
     return menuCategories
       .map((category) => {
         const title = getCategoryTitle(lang, category.id, category.title);
@@ -105,23 +101,6 @@ export function DigitalMenu() {
 
         if (activeCategory !== "all" && category.id !== activeCategory) {
           items = [];
-        }
-
-        if (query) {
-          items = items.filter((item) => {
-            const description = getItemDescription(lang, item.id, item.description);
-            return (
-              item.name.toLowerCase().includes(query) ||
-              item.description.toLowerCase().includes(query) ||
-              description.toLowerCase().includes(query)
-            );
-          });
-        }
-
-        if (hideAllergen) {
-          items = items.filter(
-            (item) => !item.allergens?.includes(hideAllergen)
-          );
         }
 
         return {
@@ -132,7 +111,7 @@ export function DigitalMenu() {
         };
       })
       .filter((category) => category.items.length > 0);
-  }, [search, hideAllergen, activeCategory, lang]);
+  }, [activeCategory, lang]);
 
   const handleAdded = (name: string) => {
     setToast(`${name} — ${t.menu.added}`);
@@ -155,15 +134,7 @@ export function DigitalMenu() {
             </p>
           </div>
 
-          <div className="sticky top-20 z-30 mt-8 space-y-4 rounded-2xl border border-border bg-card/95 p-4 shadow-sm backdrop-blur-md">
-            <input
-              type="search"
-              placeholder={t.menu.searchPlaceholder}
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="w-full rounded-full border border-border bg-background px-4 py-2.5 text-sm text-foreground placeholder:text-muted-foreground focus:border-primary/40 focus:outline-none focus:ring-2 focus:ring-primary/20"
-            />
-
+          <div className="sticky top-20 z-30 mt-8 rounded-2xl border border-border bg-card/95 p-4 shadow-sm backdrop-blur-md">
             <div className="flex flex-wrap gap-2">
               <button
                 type="button"
@@ -191,42 +162,6 @@ export function DigitalMenu() {
                 </button>
               ))}
             </div>
-
-            <details className="text-sm text-muted-foreground">
-              <summary className="cursor-pointer font-medium text-foreground/80">
-                {t.menu.allergenFilter}
-              </summary>
-              <div className="mt-3 flex flex-wrap gap-2">
-                <button
-                  type="button"
-                  onClick={() => setHideAllergen(null)}
-                  className={`rounded-full px-3 py-1 text-xs ${
-                    !hideAllergen
-                      ? "bg-primary/10 text-primary"
-                      : "bg-muted text-muted-foreground"
-                  }`}
-                >
-                  {t.menu.noFilter}
-                </button>
-                {allergenCodes.map((code) => (
-                  <button
-                    key={code}
-                    type="button"
-                    title={t.allergens[code]}
-                    onClick={() =>
-                      setHideAllergen(hideAllergen === code ? null : code)
-                    }
-                    className={`rounded-full px-3 py-1 text-xs font-semibold ${
-                      hideAllergen === code
-                        ? "bg-primary/10 text-primary"
-                        : "bg-muted text-muted-foreground"
-                    }`}
-                  >
-                    {code}
-                  </button>
-                ))}
-              </div>
-            </details>
           </div>
 
           <div className="mt-10 space-y-8">
