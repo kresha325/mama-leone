@@ -10,6 +10,7 @@ import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useCartContext } from "@/contexts/cart-context";
 import { useLanguage } from "@/contexts/language-context";
 import { business } from "@/data/menu";
+import { withBasePath } from "@/lib/base-path";
 
 export function Header() {
   const pathname = usePathname();
@@ -54,7 +55,7 @@ export function Header() {
           <Link href="/" className="group flex shrink-0 items-center gap-2.5 md:gap-3">
             <div className="relative h-10 w-10 shrink-0 overflow-hidden rounded-full shadow-sm ring-1 ring-border md:h-11 md:w-11">
               <Image
-                src="/images/logo.png"
+                src={withBasePath("/images/logo.png")}
                 alt={business.name}
                 fill
                 className="object-cover object-top"

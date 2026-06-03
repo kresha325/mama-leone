@@ -2,6 +2,7 @@
 
 import Image from "next/image";
 import { useLanguage } from "@/contexts/language-context";
+import { withBasePath } from "@/lib/base-path";
 import { MENU_BURGUNDY } from "@/lib/menu-theme";
 
 export function About() {
@@ -43,7 +44,7 @@ export function About() {
               style={{ borderColor: MENU_BURGUNDY, borderWidth: 1 }}
             >
               <Image
-                src="/images/restaurant.jpg"
+                src={withBasePath("/images/restaurant.jpg")}
                 alt={t.about.imageAlt}
                 width={800}
                 height={1000}

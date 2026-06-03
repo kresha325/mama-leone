@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { useLanguage } from "@/contexts/language-context";
 import { business } from "@/data/menu";
+import { withBasePath } from "@/lib/base-path";
 
 export function Hero() {
   const { t } = useLanguage();
@@ -15,7 +16,7 @@ export function Hero() {
     >
       <div className="absolute inset-0 z-10 bg-black/45" />
       <Image
-        src="/images/hero.png"
+        src={withBasePath("/images/hero.png")}
         alt={t.about.imageAlt}
         fill
         priority

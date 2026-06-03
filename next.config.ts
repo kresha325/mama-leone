@@ -5,6 +5,9 @@ const githubBasePath = "/mama-leone";
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  env: isGithubPages
+    ? { NEXT_PUBLIC_BASE_PATH: githubBasePath }
+    : undefined,
   ...(isGithubPages
     ? {
         output: "export",

@@ -4,6 +4,7 @@ import { Providers } from "@/components/Providers";
 import { RestaurantJsonLd } from "@/components/RestaurantJsonLd";
 import "./globals.css";
 import { business } from "@/data/menu";
+import { withBasePath } from "@/lib/base-path";
 import { SITE_NAME, SITE_URL } from "@/lib/site-config";
 
 const inter = Inter({
@@ -62,7 +63,7 @@ export const metadata: Metadata = {
     description: "Authentische italienische Küche in Meldorf, Dithmarschen",
     images: [
       {
-        url: "/images/restaurant.jpg",
+        url: withBasePath("/images/restaurant.jpg"),
         width: 1200,
         height: 630,
         alt: `${business.name} in Meldorf`,
@@ -73,7 +74,7 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: `${business.name} – Ristorante Pizzeria`,
     description: defaultDescription,
-    images: ["/images/restaurant.jpg"],
+    images: [withBasePath("/images/restaurant.jpg")],
   },
   robots: {
     index: true,
@@ -86,8 +87,8 @@ export const metadata: Metadata = {
     },
   },
   icons: {
-    icon: "/images/logo.png",
-    apple: "/images/logo.png",
+    icon: withBasePath("/images/logo.png"),
+    apple: withBasePath("/images/logo.png"),
   },
   verification: {},
 };
