@@ -10,7 +10,7 @@ import { LanguageSwitcher } from "@/components/LanguageSwitcher";
 import { useCartContext } from "@/contexts/cart-context";
 import { useLanguage } from "@/contexts/language-context";
 import { business } from "@/data/menu";
-import { withBasePath } from "@/lib/base-path";
+import { isMenuRoute, normalizeRoutePath, withBasePath } from "@/lib/base-path";
 
 export function Header() {
   const pathname = usePathname();
@@ -43,8 +43,9 @@ export function Header() {
   }, [menuOpen]);
 
   const isActive = (href: string) => {
-    if (href === "/menu") return pathname === "/menu";
-    if (href === "/") return pathname === "/";
+    const path = normalizeRoutePath(pathname);
+    if (href === "/menu") return path === "/menu";
+    if (href === "/") return path === "/";
     return false;
   };
 

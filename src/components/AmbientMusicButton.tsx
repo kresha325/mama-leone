@@ -3,6 +3,7 @@
 import { usePathname } from "next/navigation";
 import { useYoutubeAmbient } from "@/contexts/youtube-ambient-context";
 import { useLanguage } from "@/contexts/language-context";
+import { isMenuRoute } from "@/lib/base-path";
 
 function VolumeOffIcon() {
   return (
@@ -27,7 +28,7 @@ export function AmbientMusicButton() {
   const { muted, playerReady, toggleSoundOrPlayback } = useYoutubeAmbient();
   const { t } = useLanguage();
 
-  if (pathname !== "/menu") return null;
+  if (!isMenuRoute(pathname)) return null;
 
   return (
     <button

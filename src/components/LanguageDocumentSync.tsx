@@ -3,6 +3,7 @@
 import { useEffect } from "react";
 import { usePathname } from "next/navigation";
 import { useLanguage } from "@/contexts/language-context";
+import { isMenuRoute } from "@/lib/base-path";
 
 export function LanguageDocumentSync() {
   const { lang, t } = useLanguage();
@@ -12,7 +13,7 @@ export function LanguageDocumentSync() {
     document.documentElement.lang = lang;
 
     document.title =
-      pathname === "/menu"
+      isMenuRoute(pathname)
         ? `${t.meta.menuTitle} | Mama Leone`
         : t.meta.homeTitle;
   }, [lang, pathname, t]);
