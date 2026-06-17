@@ -18,6 +18,7 @@ export function Footer() {
     { href: "/", label: t.nav.home },
     { href: "/#about", label: t.nav.about },
     { href: "/menu", label: t.nav.menu },
+    { href: "/#reviews", label: t.nav.reviews },
     { href: "/#contact", label: t.nav.contact },
   ];
 

@@ -21,6 +21,7 @@ export type Translations = {
     home: string;
     about: string;
     menu: string;
+    reviews: string;
     contact: string;
     reserve: string;
     cart: string;
@@ -54,6 +55,16 @@ export type Translations = {
       dining: string;
       terrace: string;
     };
+  };
+  testimonials: {
+    badge: string;
+    title: string;
+    subtitle: string;
+    scrollHint: string;
+    sourceFacebook: string;
+    sourceInstagram: string;
+    ctaFacebook: string;
+    ctaInstagram: string;
   };
   contact: {
     location: string;
@@ -147,6 +158,7 @@ const de: Translations = {
     home: "Start",
     about: "Über uns",
     menu: "Speisekarte",
+    reviews: "Bewertungen",
     contact: "Kontakt",
     reserve: "Reservieren",
     cart: "Warenkorb",
@@ -182,6 +194,17 @@ const de: Translations = {
       dining: "Gastraum und Atmosphäre",
       terrace: "Außenbereich am Südermarkt",
     },
+  },
+  testimonials: {
+    badge: "Social Media",
+    title: "Das sagen unsere Gäste",
+    subtitle:
+      "Echte Stimmen von Gästen auf Facebook und Instagram — tippen Sie auf eine Karte.",
+    scrollHint: "← Wischen für mehr Bewertungen →",
+    sourceFacebook: "Facebook",
+    sourceInstagram: "Instagram",
+    ctaFacebook: "Alle Bewertungen auf Facebook",
+    ctaInstagram: "Folgen Sie uns auf Instagram",
   },
   contact: {
     location: "Standort",
@@ -290,6 +313,7 @@ const en: Translations = {
     home: "Home",
     about: "About",
     menu: "Menu",
+    reviews: "Reviews",
     contact: "Contact",
     reserve: "Reserve",
     cart: "Cart",
@@ -325,6 +349,17 @@ const en: Translations = {
       dining: "Dining room and atmosphere",
       terrace: "Outdoor seating at Südermarkt",
     },
+  },
+  testimonials: {
+    badge: "Social Media",
+    title: "What our guests say",
+    subtitle:
+      "Real voices from guests on Facebook and Instagram — tap a card to read more.",
+    scrollHint: "← Swipe for more reviews →",
+    sourceFacebook: "Facebook",
+    sourceInstagram: "Instagram",
+    ctaFacebook: "See all reviews on Facebook",
+    ctaInstagram: "Follow us on Instagram",
   },
   contact: {
     location: "Location",
@@ -432,6 +467,7 @@ const it: Translations = {
     home: "Home",
     about: "Chi siamo",
     menu: "Menù",
+    reviews: "Recensioni",
     contact: "Contatti",
     reserve: "Prenota",
     cart: "Carrello",
@@ -467,6 +503,17 @@ const it: Translations = {
       dining: "Sala e atmosfera",
       terrace: "Area esterna al Südermarkt",
     },
+  },
+  testimonials: {
+    badge: "Social Media",
+    title: "Cosa dicono i nostri ospiti",
+    subtitle:
+      "Voci autentiche degli ospiti su Facebook e Instagram — tocca una scheda per saperne di più.",
+    scrollHint: "← Scorri per altre recensioni →",
+    sourceFacebook: "Facebook",
+    sourceInstagram: "Instagram",
+    ctaFacebook: "Tutte le recensioni su Facebook",
+    ctaInstagram: "Seguici su Instagram",
   },
   contact: {
     location: "Dove siamo",
@@ -574,6 +621,7 @@ const fr: Translations = {
     home: "Accueil",
     about: "À propos",
     menu: "Carte",
+    reviews: "Avis",
     contact: "Contact",
     reserve: "Réserver",
     cart: "Panier",
@@ -609,6 +657,17 @@ const fr: Translations = {
       dining: "Salle et ambiance",
       terrace: "Terrasse au Südermarkt",
     },
+  },
+  testimonials: {
+    badge: "Social Media",
+    title: "Ce que disent nos clients",
+    subtitle:
+      "Avis authentiques sur Facebook et Instagram — touchez une carte pour en savoir plus.",
+    scrollHint: "← Faites défiler pour plus d'avis →",
+    sourceFacebook: "Facebook",
+    sourceInstagram: "Instagram",
+    ctaFacebook: "Tous les avis sur Facebook",
+    ctaInstagram: "Suivez-nous sur Instagram",
   },
   contact: {
     location: "Adresse",
@@ -716,6 +775,7 @@ const sq: Translations = {
     home: "Kryefaqja",
     about: "Rreth nesh",
     menu: "Menyja",
+    reviews: "Vlerësime",
     contact: "Kontakt",
     reserve: "Rezervo",
     cart: "Shporta",
@@ -751,6 +811,17 @@ const sq: Translations = {
       dining: "Salla dhe atmosfera",
       terrace: "Terraca në Südermarkt",
     },
+  },
+  testimonials: {
+    badge: "Social Media",
+    title: "Çfarë thonë mysafirët tanë",
+    subtitle:
+      "Zëra të vërtetë nga mysafirët në Facebook dhe Instagram — prekni një kartë për më shumë.",
+    scrollHint: "← Rrëshqit për më shumë vlerësime →",
+    sourceFacebook: "Facebook",
+    sourceInstagram: "Instagram",
+    ctaFacebook: "Të gjitha vlerësimet në Facebook",
+    ctaInstagram: "Na ndiqni në Instagram",
   },
   contact: {
     location: "Vendndodhja",
@@ -858,6 +929,7 @@ const sv: Translations = {
     home: "Hem",
     about: "Om oss",
     menu: "Meny",
+    reviews: "Omdömen",
     contact: "Kontakt",
     reserve: "Boka bord",
     cart: "Varukorg",
@@ -893,6 +965,17 @@ const sv: Translations = {
       dining: "Matsal och atmosfär",
       terrace: "Uteservering vid Südermarkt",
     },
+  },
+  testimonials: {
+    badge: "Social Media",
+    title: "Vad våra gäster säger",
+    subtitle:
+      "Äkta röster från gäster på Facebook och Instagram — tryck på ett kort för att läsa mer.",
+    scrollHint: "← Svep för fler omdömen →",
+    sourceFacebook: "Facebook",
+    sourceInstagram: "Instagram",
+    ctaFacebook: "Alla omdömen på Facebook",
+    ctaInstagram: "Följ oss på Instagram",
   },
   contact: {
     location: "Plats",
@@ -1000,6 +1083,7 @@ const no: Translations = {
     home: "Hjem",
     about: "Om oss",
     menu: "Meny",
+    reviews: "Anmeldelser",
     contact: "Kontakt",
     reserve: "Reserver",
     cart: "Handlekurv",
@@ -1035,6 +1119,17 @@ const no: Translations = {
       dining: "Spisesal og atmosfære",
       terrace: "Uteservering ved Südermarkt",
     },
+  },
+  testimonials: {
+    badge: "Social Media",
+    title: "Hva gjestene våre sier",
+    subtitle:
+      "Ekte stemmer fra gjester på Facebook og Instagram — trykk på et kort for å lese mer.",
+    scrollHint: "← Sveip for flere anmeldelser →",
+    sourceFacebook: "Facebook",
+    sourceInstagram: "Instagram",
+    ctaFacebook: "Alle anmeldelser på Facebook",
+    ctaInstagram: "Følg oss på Instagram",
   },
   contact: {
     location: "Beliggenhet",
@@ -1142,6 +1237,7 @@ const da: Translations = {
     home: "Hjem",
     about: "Om os",
     menu: "Menukort",
+    reviews: "Anmeldelser",
     contact: "Kontakt",
     reserve: "Reserver",
     cart: "Kurv",
@@ -1177,6 +1273,17 @@ const da: Translations = {
       dining: "Spisesal og atmosfære",
       terrace: "Udendørs siddepladser ved Südermarkt",
     },
+  },
+  testimonials: {
+    badge: "Social Media",
+    title: "Det siger vores gæster",
+    subtitle:
+      "Ægte stemmer fra gæster på Facebook og Instagram — tryk på et kort for at læse mere.",
+    scrollHint: "← Swipe for flere anmeldelser →",
+    sourceFacebook: "Facebook",
+    sourceInstagram: "Instagram",
+    ctaFacebook: "Alle anmeldelser på Facebook",
+    ctaInstagram: "Følg os på Instagram",
   },
   contact: {
     location: "Beliggenhed",
@@ -1284,6 +1391,7 @@ const fi: Translations = {
     home: "Etusivu",
     about: "Meistä",
     menu: "Ruokalista",
+    reviews: "Arvostelut",
     contact: "Yhteystiedot",
     reserve: "Varaa pöytä",
     cart: "Ostoskori",
@@ -1319,6 +1427,17 @@ const fi: Translations = {
       dining: "Sali ja tunnelma",
       terrace: "Terassi Südermarktilla",
     },
+  },
+  testimonials: {
+    badge: "Social Media",
+    title: "Mitä vieraamme sanovat",
+    subtitle:
+      "Aitoja ääniä vierailta Facebookissa ja Instagramissa — napauta korttia lukeaksesi lisää.",
+    scrollHint: "← Pyyhkäise nähdäksesi lisää arvosteluja →",
+    sourceFacebook: "Facebook",
+    sourceInstagram: "Instagram",
+    ctaFacebook: "Kaikki arvostelut Facebookissa",
+    ctaInstagram: "Seuraa meitä Instagramissa",
   },
   contact: {
     location: "Sijainti",
@@ -1426,6 +1545,7 @@ const is: Translations = {
     home: "Heim",
     about: "Um okkur",
     menu: "Matseðill",
+    reviews: "Umsagnir",
     contact: "Samband",
     reserve: "Bóka borð",
     cart: "Karfa",
@@ -1461,6 +1581,17 @@ const is: Translations = {
       dining: "Salur og andrúmsloft",
       terrace: "Útisvæði við Südermarkt",
     },
+  },
+  testimonials: {
+    badge: "Social Media",
+    title: "Það sem gestir okkar segja",
+    subtitle:
+      "Raunverulegar raddir frá gestum á Facebook og Instagram — ýttu á spjald til að lesa meira.",
+    scrollHint: "← Strjúktu til að sjá fleiri umsagnir →",
+    sourceFacebook: "Facebook",
+    sourceInstagram: "Instagram",
+    ctaFacebook: "Allar umsagnir á Facebook",
+    ctaInstagram: "Fylgdu okkur á Instagram",
   },
   contact: {
     location: "Staðsetning",
