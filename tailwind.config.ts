@@ -9,24 +9,24 @@ const config: Config = {
   theme: {
     extend: {
       colors: {
-        background: "#F5F1E9",
-        foreground: "#2A1F1A",
+        background: "#FAF6EF",
+        foreground: "#342820",
         primary: {
-          DEFAULT: "#9B393E",
-          foreground: "#F5F1E9",
+          DEFAULT: "#872F38",
+          foreground: "#FBF7F0",
         },
         muted: {
-          DEFAULT: "#E8E0D4",
-          foreground: "#6B5E54",
+          DEFAULT: "#EDE6DA",
+          foreground: "#75685C",
         },
         card: {
-          DEFAULT: "#FAF7F0",
-          foreground: "#2A1F1A",
+          DEFAULT: "#FFFCF7",
+          foreground: "#342820",
         },
-        border: "#D9CFC0",
-        burgundy: "#9B393E",
-        gold: "#A88442",
-        cream: "#F5F1E9",
+        border: "#E2D6C8",
+        burgundy: "#872F38",
+        gold: "#B08D4F",
+        cream: "#FAF6EF",
       },
       fontFamily: {
         script: ["var(--font-great-vibes)", "cursive"],

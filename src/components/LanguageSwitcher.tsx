@@ -21,11 +21,11 @@ export function LanguageSwitcher({ compact = false }: { compact?: boolean }) {
   }, [open]);
 
   return (
-    <div ref={ref} className="relative">
+    <div ref={ref} className="notranslate relative">
       <button
         type="button"
         onClick={() => setOpen(!open)}
-        className={`notranslate flex items-center gap-1.5 rounded-full border border-border bg-background text-foreground transition hover:border-primary hover:text-primary ${
+        className={`flex items-center gap-1.5 rounded-full border border-border bg-background text-foreground transition hover:border-primary hover:text-primary ${
           compact ? "px-2.5 py-1.5 text-xs" : "px-3 py-2 text-sm"
         }`}
         aria-label={t.nav.language}

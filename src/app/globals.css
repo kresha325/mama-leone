@@ -4,8 +4,8 @@
 
 @layer base {
   ::selection {
-    background-color: rgba(155, 57, 62, 0.25);
-    color: #2a1f1a;
+    background-color: rgba(135, 47, 56, 0.22);
+    color: #342820;
   }
 
   html {

@@ -1,5 +1,4 @@
 import type { ReactNode } from "react";
-import { MenuCurvedText } from "./MenuCurvedText";
 
 interface MenuSectionFrameProps {
   title: string;
@@ -12,50 +11,37 @@ interface MenuSectionFrameProps {
 
 export function MenuSectionFrame({
   title,
-  borderColor,
-  backgroundColor,
   titleColor,
   children,
   note,
 }: MenuSectionFrameProps) {
   return (
-    <section className="w-full pt-5 md:pt-6">
-      <div
-        className="rounded-[28px] border p-[3px]"
-        style={{ borderColor }}
-      >
-        <div
-          className="rounded-[24px] border p-[3px]"
-          style={{ borderColor }}
-        >
-          <div
-            className="relative rounded-[20px] border px-3 pb-5 pt-10 md:px-5 md:pb-6 md:pt-11"
-            style={{ borderColor, backgroundColor }}
+    <section className="overflow-hidden rounded-2xl border border-primary/12 bg-card shadow-[0_4px_24px_-8px_rgba(42,31,26,0.12)]">
+      <header className="relative border-b border-l-4 border-primary/10 px-5 py-4 md:px-7 md:py-5" style={{ borderLeftColor: titleColor }}>
+        <div className="flex items-center gap-3">
+          <span
+            className="hidden h-px flex-1 max-w-12 bg-gradient-to-r from-transparent to-primary/30 sm:block"
+            aria-hidden
+          />
+          <h2
+            className="font-display text-2xl font-semibold tracking-tight md:text-[1.65rem]"
+            style={{ color: titleColor }}
           >
-            <div
-              className="absolute left-1/2 top-0 z-10 -translate-x-1/2 -translate-y-[78%] px-3 py-0.5 md:px-3.5"
-              style={{ backgroundColor }}
-            >
-              <MenuCurvedText
-                text={title}
-                color={titleColor}
-                backgroundColor={backgroundColor}
-              />
-            </div>
-
-            {note && (
-              <p
-                className="mb-4 text-center text-[10px] italic leading-relaxed md:text-xs"
-                style={{ color: titleColor, opacity: 0.7 }}
-              >
-                {note}
-              </p>
-            )}
-
-            <div className="grid gap-0 md:grid-cols-2">{children}</div>
-          </div>
+            {title}
+          </h2>
+          <span
+            className="h-px flex-1 bg-gradient-to-r from-primary/30 to-transparent"
+            aria-hidden
+          />
         </div>
-      </div>
+        {note ? (
+          <p className="mt-2 text-center text-sm leading-relaxed text-muted-foreground md:text-left">
+            {note}
+          </p>
+        ) : null}
+      </header>
+
+      <div className="divide-y divide-primary/[0.07] px-3 py-1 md:px-5">{children}</div>
     </section>
   );
 }

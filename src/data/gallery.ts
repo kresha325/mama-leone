@@ -16,12 +16,10 @@ const altRotation: GalleryAltKey[] = [
   "dining",
   "exterior",
   "terrace",
-  "kitchen",
-  "dining",
+  "exterior",
 ];
 
-/** Photos sourced from @mama_leone_meldorf on Instagram. */
-export const galleryItems: GalleryItem[] = Array.from({ length: 10 }, (_, index) => ({
-  src: withBasePath(`/images/gallery/${String(index + 1).padStart(2, "0")}.jpg`),
+export const galleryItems: GalleryItem[] = Array.from({ length: 9 }, (_, index) => ({
+  src: withBasePath(`/images/gallery/mama${index + 1}.jpg`),
   altKey: altRotation[index],
 }));

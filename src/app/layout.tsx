@@ -101,14 +101,10 @@ export default function RootLayout({
   return (
     <html
       lang="de"
-      translate="no"
       suppressHydrationWarning
-      className={`${inter.variable} ${playfair.variable} ${oswald.variable} ${greatVibes.variable} scroll-smooth notranslate`}
+      className={`${inter.variable} ${playfair.variable} ${oswald.variable} ${greatVibes.variable} scroll-smooth`}
     >
-      <head>
-        <meta name="google" content="notranslate" />
-      </head>
-      <body className="font-sans antialiased notranslate">
+      <body className="font-sans antialiased">
         <RestaurantJsonLd />
         <Providers>{children}</Providers>
       </body>

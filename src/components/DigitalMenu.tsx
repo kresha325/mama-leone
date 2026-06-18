@@ -34,6 +34,8 @@ function MenuFoodItem({
 }) {
   const { addToCart } = useCartContext();
   const description = getItemDescription(lang, item.id, item.description);
+  const priceText = item.priceLabel ?? formatPrice(item.price);
+  const hasDetails = Boolean(description || item.allergens?.length);
 
   const handleAdd = () => {
     addToCart(item, categoryId);
@@ -41,46 +43,53 @@ function MenuFoodItem({
   };
 
   return (
-    <article className="w-full px-1 py-2 md:px-2 md:py-3">
+    <article>
       <button
         type="button"
         onClick={handleAdd}
-        className="grid w-full grid-cols-[minmax(0,38%)_1fr_auto] items-start gap-x-2 text-left transition hover:opacity-80 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/30 md:flex md:flex-col md:items-center md:gap-0.5 md:text-center"
+        className="group w-full rounded-xl px-3 py-3.5 text-left transition hover:bg-primary/[0.04] focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-primary/25 md:px-4 md:py-4"
         aria-label={`${item.name} — ${t.menu.addToCart}`}
       >
-        <h3
-          className="text-[10px] font-bold uppercase leading-tight tracking-[0.03em] md:text-xs"
-          style={{ color: MENU_FOOD.title }}
-        >
-          {item.name}
-          {item.spicy && (
-            <span className="ml-1 normal-case text-primary/80">· {t.menu.spicy}</span>
-          )}
-          {item.highlight && (
-            <span className="ml-1 block text-[8px] normal-case tracking-normal text-gold md:inline">
-              ★ {t.menu.specialty}
-            </span>
-          )}
-        </h3>
+        <div className="flex items-baseline gap-3">
+          <h3 className="min-w-0 font-display text-[1.05rem] font-semibold leading-snug text-foreground group-hover:text-primary md:text-lg">
+            {item.name}
+            {item.spicy && (
+              <span className="ml-1.5 text-sm font-normal text-primary/80">
+                · {t.menu.spicy}
+              </span>
+            )}
+            {item.highlight && (
+              <span className="ml-1.5 text-xs font-medium text-gold">
+                ★ {t.menu.specialty}
+              </span>
+            )}
+          </h3>
+          <span
+            className="mb-1 min-w-[1.5rem] flex-1 border-b border-dotted border-primary/25"
+            aria-hidden
+          />
+          <p
+            className="shrink-0 text-right font-menu text-sm font-bold tabular-nums text-primary md:text-base"
+          >
+            {priceText}
+          </p>
+        </div>
 
-        <p
-          className="min-w-0 text-[8px] font-normal uppercase leading-snug tracking-[0.03em] md:max-w-[12rem] md:text-[10px]"
-          style={{ color: MENU_FOOD.description }}
-        >
-          {description}
-          {item.allergens?.length ? (
-            <span className="ml-1 not-italic normal-case opacity-80">
-              ({item.allergens.join(", ")})
-            </span>
-          ) : null}
-        </p>
+        {hasDetails ? (
+          <p className="mt-1.5 max-w-2xl text-sm leading-relaxed text-muted-foreground">
+            {description}
+            {item.allergens?.length ? (
+              <span className="ml-1 text-xs text-primary/70">
+                ({item.allergens.join(", ")})
+              </span>
+            ) : null}
+          </p>
+        ) : null}
 
-        <p
-          className="shrink-0 text-[10px] font-bold tabular-nums md:mt-0.5 md:text-xs"
-          style={{ color: MENU_FOOD.price }}
-        >
-          {item.priceLabel ?? formatPrice(item.price)}
-        </p>
+        <span className="mt-2 inline-flex items-center gap-1 text-[11px] font-medium uppercase tracking-wider text-primary/0 transition group-hover:text-primary/70">
+          <span>+</span>
+          {t.menu.tapHint}
+        </span>
       </button>
     </article>
   );
@@ -118,32 +127,58 @@ export function DigitalMenu() {
     window.setTimeout(() => setToast(null), 2200);
   };
 
+  const filterButtonClass = (active: boolean) =>
+    `shrink-0 rounded-lg px-4 py-2 text-xs font-semibold uppercase tracking-[0.06em] transition md:text-[11px] ${
+      active
+        ? "bg-primary text-primary-foreground shadow-sm"
+        : "bg-background text-foreground/75 ring-1 ring-border hover:bg-muted/60 hover:text-foreground"
+    }`;
+
   return (
     <>
-      <section className="bg-background py-14 md:py-20">
-        <div className="container-page max-w-5xl">
+      <section className="relative overflow-hidden bg-[linear-gradient(180deg,hsl(var(--background))_0%,hsl(var(--muted)/0.35)_100%)] py-14 md:py-20">
+        <div
+          className="pointer-events-none absolute inset-0 opacity-[0.035]"
+          style={{
+            backgroundImage:
+              "radial-gradient(circle at 1px 1px, currentColor 1px, transparent 0)",
+            backgroundSize: "28px 28px",
+          }}
+          aria-hidden
+        />
+
+        <div className="container-page relative max-w-3xl">
           <div className="text-center">
-            <span className="text-sm font-medium uppercase tracking-[0.25em] text-primary">
+            <span className="inline-block text-xs font-semibold uppercase tracking-[0.35em] text-gold">
               {t.menu.badge}
             </span>
-            <h1 className="mt-3 font-menu text-4xl font-bold uppercase tracking-[0.08em] text-foreground md:text-5xl">
+            <h1 className="mt-4 font-display text-4xl font-semibold italic text-primary md:text-5xl">
               {t.menu.title}
             </h1>
-            <p className="mx-auto mt-4 max-w-2xl text-muted-foreground">
+            <div className="mx-auto mt-4 flex items-center justify-center gap-3">
+              <span className="h-px w-10 bg-primary/25" aria-hidden />
+              <span className="text-primary/40" aria-hidden>
+                ✦
+              </span>
+              <span className="h-px w-10 bg-primary/25" aria-hidden />
+            </div>
+            <p className="mx-auto mt-4 max-w-lg text-base leading-relaxed text-muted-foreground">
               {t.menu.subtitle}
             </p>
           </div>
 
-          <div className="sticky top-20 z-30 mt-8 rounded-2xl border border-border bg-card/95 p-4 shadow-sm backdrop-blur-md">
-            <div className="flex flex-wrap gap-2">
+          <div className="sticky top-20 z-30 mt-10 border-y border-border/80 bg-background/90 py-3 backdrop-blur-md">
+            <div
+              className="flex gap-2 overflow-x-auto pb-0.5 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden"
+              role="tablist"
+              aria-label={t.menu.all}
+            >
               <button
                 type="button"
+                role="tab"
+                aria-selected={activeCategory === "all"}
                 onClick={() => setActiveCategory("all")}
-                className={`rounded-full border px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.07em] transition ${
-                  activeCategory === "all"
-                    ? "border-primary bg-primary text-primary-foreground"
-                    : "border-border bg-background text-foreground/70 hover:border-primary/30"
-                }`}
+                className={filterButtonClass(activeCategory === "all")}
               >
                 {t.menu.all}
               </button>
@@ -151,12 +186,10 @@ export function DigitalMenu() {
                 <button
                   key={cat.id}
                   type="button"
+                  role="tab"
+                  aria-selected={activeCategory === cat.id}
                   onClick={() => setActiveCategory(cat.id)}
-                  className={`rounded-full border px-4 py-1.5 text-[11px] font-bold uppercase tracking-[0.07em] transition ${
-                    activeCategory === cat.id
-                      ? "border-primary bg-primary text-primary-foreground"
-                      : "border-border bg-background text-foreground/70 hover:border-primary/30"
-                  }`}
+                  className={filterButtonClass(activeCategory === cat.id)}
                 >
                   {getCategoryTitle(lang, cat.id, cat.title)}
                 </button>
@@ -164,7 +197,7 @@ export function DigitalMenu() {
             </div>
           </div>
 
-          <div className="mt-10 space-y-8">
+          <div className="mt-10 space-y-7">
             {filteredCategories.length === 0 ? (
               <p className="py-12 text-center text-muted-foreground">
                 {t.menu.noResults}
@@ -194,14 +227,19 @@ export function DigitalMenu() {
             )}
           </div>
 
-          <details className="mt-10 rounded-2xl border border-border bg-card p-6">
-            <summary className="cursor-pointer font-menu text-lg font-semibold text-foreground">
-              {t.menu.legendTitle}
+          <details className="mt-12 rounded-xl border border-primary/12 bg-card/80 p-5 shadow-sm open:shadow-md">
+            <summary className="cursor-pointer list-none font-display text-lg font-semibold text-primary [&::-webkit-details-marker]:hidden">
+              <span className="flex items-center justify-between gap-2">
+                {t.menu.legendTitle}
+                <span className="text-sm text-muted-foreground">+</span>
+              </span>
             </summary>
-            <div className="mt-4 grid gap-2 sm:grid-cols-2">
+            <div className="mt-4 grid gap-2 border-t border-primary/10 pt-4 sm:grid-cols-2">
               {allergenCodes.map((code) => (
-                <p key={code} className="text-sm text-muted-foreground">
-                  <span className="mr-2 font-semibold text-primary">{code}</span>
+                <p key={code} className="text-sm leading-relaxed text-muted-foreground">
+                  <span className="mr-2 inline-flex h-6 w-6 items-center justify-center rounded-full bg-primary/10 text-xs font-bold text-primary">
+                    {code}
+                  </span>
                   {t.allergens[code]}
                 </p>
               ))}
@@ -211,7 +249,7 @@ export function DigitalMenu() {
       </section>
 
       {toast && (
-        <div className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 rounded-full bg-foreground px-5 py-3 text-sm text-background shadow-lg">
+        <div className="fixed bottom-6 left-1/2 z-50 -translate-x-1/2 rounded-xl border border-primary/20 bg-primary px-5 py-3 text-sm font-medium text-primary-foreground shadow-lg">
           {toast}
         </div>
       )}
