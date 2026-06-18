@@ -87,7 +87,21 @@ export function Footer() {
           <p>
             © {year} {business.name}. {t.footer.rights}
           </p>
-          <p className="font-display italic text-primary/80">{t.footer.motto}</p>
+          <div className="flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
+            <Link
+              href="/impressum"
+              className="transition hover:text-primary"
+            >
+              Impressum
+            </Link>
+            <Link
+              href="/datenschutz"
+              className="transition hover:text-primary"
+            >
+              Datenschutz
+            </Link>
+            <p className="font-display italic text-primary/80">{t.footer.motto}</p>
+          </div>
         </div>
       </div>
     </footer>
