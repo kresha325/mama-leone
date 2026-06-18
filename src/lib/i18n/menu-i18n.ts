@@ -9,7 +9,8 @@ type CategoryId =
   | "carne"
   | "pesce"
   | "bambini"
-  | "dessert";
+  | "dessert"
+  | "getraenke";
 
 const categoryTitles: Record<Language, Record<CategoryId, string>> = {
   de: {
@@ -21,7 +22,8 @@ const categoryTitles: Record<Language, Record<CategoryId, string>> = {
     carne: "Fleischgerichte",
     pesce: "Fischgerichte",
     bambini: "Kinder",
-    dessert: "Desserts"
+    dessert: "Desserts",
+    getraenke: "Getränke",
   },
   en: {
     zuppe: "Soups",
@@ -32,7 +34,8 @@ const categoryTitles: Record<Language, Record<CategoryId, string>> = {
     carne: "Meat",
     pesce: "Fish",
     bambini: "Kids",
-    dessert: "Desserts"
+    dessert: "Desserts",
+    getraenke: "Drinks",
   },
   it: {
     zuppe: "Zuppe",
@@ -43,7 +46,8 @@ const categoryTitles: Record<Language, Record<CategoryId, string>> = {
     carne: "Carne",
     pesce: "Pesce",
     bambini: "Bambini",
-    dessert: "Dolci"
+    dessert: "Dolci",
+    getraenke: "Bevande",
   },
   fr: {
     zuppe: "Soupes",
@@ -54,7 +58,8 @@ const categoryTitles: Record<Language, Record<CategoryId, string>> = {
     carne: "Viandes",
     pesce: "Poissons",
     bambini: "Enfants",
-    dessert: "Desserts"
+    dessert: "Desserts",
+    getraenke: "Boissons",
   },
   sq: {
     zuppe: "Supa",
@@ -65,7 +70,8 @@ const categoryTitles: Record<Language, Record<CategoryId, string>> = {
     carne: "Mish",
     pesce: "Peshk",
     bambini: "Fëmijë",
-    dessert: "Ëmbëlsira"
+    dessert: "Ëmbëlsira",
+    getraenke: "Pije",
   },
   sv: {
     zuppe: "Soppor",
@@ -76,7 +82,8 @@ const categoryTitles: Record<Language, Record<CategoryId, string>> = {
     carne: "Kött",
     pesce: "Fisk",
     bambini: "Barn",
-    dessert: "Efterrätter"
+    dessert: "Efterrätter",
+    getraenke: "Drycker",
   },
   no: {
     zuppe: "Supper",
@@ -87,7 +94,8 @@ const categoryTitles: Record<Language, Record<CategoryId, string>> = {
     carne: "Kjøtt",
     pesce: "Fisk",
     bambini: "Barn",
-    dessert: "Desserter"
+    dessert: "Desserter",
+    getraenke: "Drikke",
   },
   da: {
     zuppe: "Supper",
@@ -98,7 +106,8 @@ const categoryTitles: Record<Language, Record<CategoryId, string>> = {
     carne: "Kød",
     pesce: "Fisk",
     bambini: "Børn",
-    dessert: "Desserter"
+    dessert: "Desserter",
+    getraenke: "Drikkevarer",
   },
   fi: {
     zuppe: "Keitot",
@@ -109,7 +118,8 @@ const categoryTitles: Record<Language, Record<CategoryId, string>> = {
     carne: "Liha",
     pesce: "Kala",
     bambini: "Lapset",
-    dessert: "Jälkiruoat"
+    dessert: "Jälkiruoat",
+    getraenke: "Juomat",
   },
   is: {
     zuppe: "Súpur",
@@ -120,7 +130,8 @@ const categoryTitles: Record<Language, Record<CategoryId, string>> = {
     carne: "Kjöt",
     pesce: "Fiskur",
     bambini: "Börn",
-    dessert: "Eftirréttir"
+    dessert: "Eftirréttir",
+    getraenke: "Drykkir",
   }
 };
 
@@ -129,13 +140,17 @@ const categoryNotes: Record<Language, Partial<Record<CategoryId, string>>> = {
     insalata: "Wir servieren alle Salate mit Brot und wahlweise Balsamicoessig / Öl oder Dressing (C, J, 3, 4)",
     antipasti: "Zu jeder Vorspeise wird Brot serviert (A)",
     pizza: "Unsere Pizzen werden mit hochwertiger Tomatensauce verfeinert und mit Käse und Oregano gewürzt. A, G, 2",
-    carne: "Alle Fleischgerichte servieren wir mit Tagesbeilage"
+    carne: "Alle Fleischgerichte servieren wir mit Tagesbeilage",
+    getraenke:
+      "Alkoholfreie Getränke, Säfte, Biere, Weine, Spirituosen, Aperitifs und Heißgetränke. Alle Preise inkl. MwSt.",
   },
   en: {
     insalata: "All salads are served with bread and your choice of balsamic vinegar / oil or dressing (C, J, 3, 4)",
     antipasti: "Bread is served with every appetizer (A)",
     pizza: "Our pizzas are topped with premium tomato sauce and seasoned with cheese and oregano. A, G, 2",
-    carne: "All meat dishes are served with the daily side"
+    carne: "All meat dishes are served with the daily side",
+    getraenke:
+      "Soft drinks, juices, beers, wines, spirits, aperitifs and hot drinks. All prices incl. VAT.",
   },
   it: {
     insalata: "Tutte le insalate sono servite con pane e a scelta aceto balsamico / olio o condimento (C, J, 3, 4)",

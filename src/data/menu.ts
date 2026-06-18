@@ -1,3 +1,5 @@
+import { getraenkeCategory } from "./drinks-menu";
+
 export const business = {
   name: "Mama Leone",
   tagline: "Ristorante Pizzeria",
@@ -69,6 +71,8 @@ export interface MenuItem {
   name: string;
   description: string;
   price: number;
+  /** Override price display (e.g. multiple sizes). */
+  priceLabel?: string;
   allergens?: (AllergenCode | string)[];
   spicy?: boolean;
   highlight?: boolean;
@@ -509,6 +513,7 @@ export const menuCategories: MenuCategory[] = [
       },
     ],
   },
+  getraenkeCategory,
 ];
 
 export function formatPrice(price: number): string {

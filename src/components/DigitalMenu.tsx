@@ -79,7 +79,7 @@ function MenuFoodItem({
           className="shrink-0 text-[10px] font-bold tabular-nums md:mt-0.5 md:text-xs"
           style={{ color: MENU_FOOD.price }}
         >
-          {formatPrice(item.price)}
+          {item.priceLabel ?? formatPrice(item.price)}
         </p>
       </button>
     </article>

@@ -7,12 +7,21 @@ export type GalleryItem = {
   altKey: GalleryAltKey;
 };
 
-/** Replace or extend this list when new photos are ready. */
-export const galleryItems: GalleryItem[] = [
-  { src: withBasePath("/images/hero.png"), altKey: "kitchen" },
-  { src: withBasePath("/images/restaurant.jpg"), altKey: "exterior" },
-  { src: withBasePath("/images/hero.png"), altKey: "dining" },
-  { src: withBasePath("/images/restaurant.jpg"), altKey: "terrace" },
-  { src: withBasePath("/images/restaurant.jpg"), altKey: "exterior" },
-  { src: withBasePath("/images/hero.png"), altKey: "kitchen" },
+const altRotation: GalleryAltKey[] = [
+  "kitchen",
+  "exterior",
+  "dining",
+  "terrace",
+  "kitchen",
+  "dining",
+  "exterior",
+  "terrace",
+  "kitchen",
+  "dining",
 ];
+
+/** Photos sourced from @mama_leone_meldorf on Instagram. */
+export const galleryItems: GalleryItem[] = Array.from({ length: 10 }, (_, index) => ({
+  src: withBasePath(`/images/gallery/${String(index + 1).padStart(2, "0")}.jpg`),
+  altKey: altRotation[index],
+}));
